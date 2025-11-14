@@ -14,13 +14,13 @@ Playlist::~Playlist() {
     #endif
     //delete all nodes and tracks:
     PlaylistNode* current = head;
-    PlaylistNode* next = nullptr;
     while (current) {
-        next = current->next;
+        PlaylistNode* next = current->next;
         delete current;
         current = next;
     }
-    delete head;
+    head = nullptr;
+    track_count = 0;
 }
 
 void Playlist::add_track(AudioTrack* track) {
@@ -139,5 +139,5 @@ std::vector<AudioTrack*> Playlist::getTracks() const {      //Why return pointer
 
 PlaylistNode::~PlaylistNode(){
     delete track;
-    next = nullptr;     //?
+    next = nullptr;
 }
