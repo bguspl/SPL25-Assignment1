@@ -44,18 +44,25 @@ void Playlist::remove_track(const std::string& title) {
 
     if (current) {
         // Remove from linked list
+        
         if (prev) {
             prev->next = current->next;
         } else {
             head = current->next;
         }
 
+        //testing to see if works 
+        delete current;
+        
         track_count--;
+        
         std::cout << "Removed '" << title << "' from playlist" << std::endl;
 
     } else {
         std::cout << "Track '" << title << "' not found in playlist" << std::endl;
     }
+    
+    
 }
 
 void Playlist::display() const {
