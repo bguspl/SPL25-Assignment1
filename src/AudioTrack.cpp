@@ -54,9 +54,7 @@ AudioTrack::AudioTrack(const AudioTrack& other)
     // Your code here...
     if (waveform_size > 0) {
         waveform_data = new double[waveform_size];
-        for (size_t i = 0; i < waveform_size; ++i) {
-            waveform_data[i] = other.waveform_data[i];
-        }
+        other.get_waveform_copy(waveform_data, waveform_size);
     }
 }
 
@@ -71,15 +69,13 @@ AudioTrack& AudioTrack::operator=(const AudioTrack& other) {
         artists = other.artists;
         duration_seconds = other.duration_seconds;
         bpm = other.bpm;
-        delete[] waveform_data;
         waveform_size = other.waveform_size;
+        delete[] waveform_data;
         waveform_data = nullptr;    //nullptr in case size = 0
         if (waveform_size > 0) {
-        waveform_data = new double[waveform_size];
-        for (size_t i = 0; i < waveform_size; ++i) {
-            waveform_data[i] = other.waveform_data[i];
+            waveform_data = new double[waveform_size];
+            other.get_waveform_copy(waveform_data, waveform_size);
         }
-    }
     }
     return *this;
 }
