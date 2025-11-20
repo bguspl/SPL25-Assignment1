@@ -2,17 +2,104 @@
 #include "AudioTrack.h"
 #include <iostream>
 #include <algorithm>
+
+
 Playlist::Playlist(const std::string& name) 
     : head(nullptr), playlist_name(name), track_count(0) {
     std::cout << "Created playlist: " << name << std::endl;
 }
+
 // TODO: Fix memory leaks!
 // Students must fix this in Phase 1
+
+// we added a while loop that runs over the track list and dektes them
 Playlist::~Playlist() {
     #ifdef DEBUG
     std::cout << "Destroying playlist: " << playlist_name << std::endl;
     #endif
+    PlaylistNode* current = head;
+    while (current != nullptr){
+        PlaylistNode* next = current->next;
+        delete current;
+        current = next;
+    }
 }
+
+// Copy Constructor
+Playlist::Playlist(const Playlist& other)
+    : playlist_name(other.playlist_name), track_count(other.track_count)
+    {
+
+    if (other.head == nullptr) {
+            return; 
+    }
+
+    // Using pointerWarraper to manage smart memory managment in the heap
+    AudioTrack* clonedTrack = other.head->track->clone().release();
+    head = new PlaylistNode(clonedTrack);
+
+    //creating new nodes that we'll run in the iteration
+    PlaylistNode* thisCurrent = head;
+    PlaylistNode* otherCurrent = other.head->next;
+
+    //pointing the smart pointer at the current track of the new copy
+    while (otherCurrent != nullptr) {
+        AudioTrack* clonedTrack = otherCurrent->track->clone().release();
+        thisCurrent->next = new PlaylistNode(clonedTrack);
+        thisCurrent = thisCurrent->next;
+        otherCurrent = otherCurrent->next;
+    }
+
+}
+
+//copy assignment operator
+Playlist& Playlist::operator=(const Playlist& other)
+{
+    // At first, delete the current element and all its fields
+    if (this == &other){
+        return *this;
+    }
+    PlaylistNode* current = head;
+    while (current != nullptr){
+        PlaylistNode* nextNode = current->next;
+        delete current;
+        current = nextNode;
+    }
+
+    head = nullptr;
+    track_count = 0;
+
+    //Update the Playlist name
+    playlist_name = other.playlist_name;
+    
+    // if other is empty from tracks, we can return the pointer
+    if (other.head == nullptr) {
+        return *this;
+    }
+
+    //If we have tracks in other, copy them to this
+    
+    // Using pointerWarraper to manage smart memory managment in the heap
+    AudioTrack* clonedTrack = other.head->track->clone().release();
+    head = new PlaylistNode(clonedTrack);
+
+    //creating new nodes that we'll run in the iteration
+    PlaylistNode* thisCurrent = head;
+    PlaylistNode* otherCurrent = other.head->next;
+
+    //pointing the smart pointer at the current track of the new copy
+    while (otherCurrent != nullptr) {
+        AudioTrack* clonedTrack = otherCurrent->track->clone().release();
+        thisCurrent->next = new PlaylistNode(clonedTrack);
+        thisCurrent = thisCurrent->next;
+        otherCurrent = otherCurrent->next;
+    }
+
+    track_count = other.track_count;
+    return *this;
+    
+}
+
 
 void Playlist::add_track(AudioTrack* track) {
     if (!track) {
