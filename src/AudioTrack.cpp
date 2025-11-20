@@ -31,29 +31,72 @@ AudioTrack::AudioTrack(const std::string& title, const std::vector<std::string>&
 // ========== TODO: STUDENTS IMPLEMENT RULE OF 5 ==========
 
 AudioTrack::~AudioTrack() {
-    // TODO: Implement the destructor
     #ifdef DEBUG
     std::cout << "AudioTrack destructor called for: " << title << std::endl;
     #endif
-    // Your code here...
+
+    //Checking if the waveform data points to null and if not, delete it
+    if (waveform_data != nullptr){
+        delete[] waveform_data;
+    }
 }
 
 AudioTrack::AudioTrack(const AudioTrack& other)
+    : title(other.title), 
+      artists(other.artists),
+      duration_seconds(other.duration_seconds), 
+      bpm(other.bpm), 
+      waveform_size(other.waveform_size)
 {
-    // TODO: Implement the copy constructor
     #ifdef DEBUG
     std::cout << "AudioTrack copy constructor called for: " << other.title << std::endl;
     #endif
-    // Your code here...
+
+    //Deep copy the waveform array to ower new element
+    if(other.waveform_data != nullptr){
+        waveform_data = new double[waveform_size];
+        for (int i = 0;i<other.waveform_size;i++){
+            waveform_data[i] = other.waveform_data[i];
+        }
+    }else{
+        waveform_data = nullptr;
+    }
 }
 
-AudioTrack& AudioTrack::operator=(const AudioTrack& other) {
-    // TODO: Implement the copy assignment operator
+AudioTrack& AudioTrack::operator=(const AudioTrack& other)
+{
     #ifdef DEBUG
     std::cout << "AudioTrack copy assignment called for: " << other.title << std::endl;
     #endif
-    // Your code here...
+
+    //Check if other equals to the current element
+    if (this == &other) {
+        return *this;
+    }
+
+    //Updating the fields that are not pointers
+    title = other.title;
+    artists = other.artists;
+    duration_seconds = other.duration_seconds;
+    bpm = other.bpm;
+    waveform_size= other.waveform_size;
+
+    //Destroying the array and building it from scratch    
+    if (waveform_data != nullptr){
+        delete[] waveform_data;
+    }
+
+    if (other.waveform_data != nullptr) {
+        waveform_data = new double[waveform_size];
+        for (size_t i = 0; i < waveform_size; i++) {
+            waveform_data[i] = other.waveform_data[i];
+        }
+    }else{
+        waveform_data = nullptr;
+    }
+
     return *this;
+
 }
 
 AudioTrack::AudioTrack(AudioTrack&& other) noexcept {
