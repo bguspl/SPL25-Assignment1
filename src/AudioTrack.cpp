@@ -30,6 +30,7 @@ AudioTrack::AudioTrack(const std::string& title, const std::vector<std::string>&
 
 // ========== TODO: STUDENTS IMPLEMENT RULE OF 5 ==========
 
+// Destructor
 AudioTrack::~AudioTrack() {
     #ifdef DEBUG
     std::cout << "AudioTrack destructor called for: " << title << std::endl;
@@ -41,6 +42,7 @@ AudioTrack::~AudioTrack() {
     }
 }
 
+// Copy constructor
 AudioTrack::AudioTrack(const AudioTrack& other)
     : title(other.title), 
       artists(other.artists),
@@ -63,6 +65,7 @@ AudioTrack::AudioTrack(const AudioTrack& other)
     }
 }
 
+// Copy assignment operator
 AudioTrack& AudioTrack::operator=(const AudioTrack& other)
 {
     #ifdef DEBUG
@@ -99,21 +102,47 @@ AudioTrack& AudioTrack::operator=(const AudioTrack& other)
 
 }
 
-AudioTrack::AudioTrack(AudioTrack&& other) noexcept {
-    // TODO: Implement the move constructor
+// Move constructor
+AudioTrack::AudioTrack(AudioTrack&& other) noexcept 
+    : title(std::move(other.title)),
+      artists(std::move(other.artists)),
+      duration_seconds(other.duration_seconds),
+      bpm(other.bpm),
+      waveform_data(other.waveform_data),
+      waveform_size(other.waveform_size) {
     #ifdef DEBUG
     std::cout << "AudioTrack move constructor called for: " << other.title << std::endl;
     #endif
-    // Your code here...
+    // Reseting all non-standart elemnts
+    other.waveform_data = nullptr;
+    other.waveform_size = 0;
 }
 
+// Move assignment operator
 AudioTrack& AudioTrack::operator=(AudioTrack&& other) noexcept {
-    // TODO: Implement the move assignment operator
-
     #ifdef DEBUG
     std::cout << "AudioTrack move assignment called for: " << other.title << std::endl;
-    #endif
-    // Your code here...
+    #endif 
+    // Updating the fields that are not pointers
+    title = std::move(other.title);
+    artists = std::move(other.artists);
+    duration_seconds = other.duration_seconds;
+    bpm = other.bpm;
+    waveform_size= other.waveform_size;
+
+    // Destroying the array   
+    if (waveform_data != nullptr){
+        delete[] waveform_data;
+    }
+
+    // Stealling the resources
+    waveform_data = other.waveform_data;
+    waveform_size = other.waveform_size;
+    
+    // Reseting all non-standart elemnts
+    other.waveform_data = nullptr;   
+    other.waveform_size = 0;
+
     return *this;
 }
 
