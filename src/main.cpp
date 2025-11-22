@@ -189,8 +189,11 @@ int main(int argc, char* argv[]) {
         // Test each phase individually
         test_phase_1_memory_leaks();
         test_phase_2_rule_of_5();
-        test_phase_3();
-        demonstrate_polymorphism();
+        // test_phase_3();
+        // demonstrate_polymorphism();
+        AudioTrack* mp3 = new MP3Track("Sunset Lover", {"Petit Biscuit"}, 180, 120, 320);
+        mp3->analyze_beatgrid();
+        delete mp3;
         std::cout << "\n(Set 'run_software' to true in main.cpp to run the full interactive session.)\n" << std::endl;
     }
     return 0;
