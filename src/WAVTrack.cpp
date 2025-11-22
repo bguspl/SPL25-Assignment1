@@ -27,13 +27,21 @@ void WAVTrack::analyze_beatgrid() {
     // 2. Calculate beats: (duration_seconds / 60.0) * bpm
     // 3. Print number of beats and mention uncompressed precision
     // should print "  → Estimated beats: <beats>  → Precision factor: 1.0 (uncompressed audio)"
+    double beats = (duration_seconds / 60.0) * bpm;
+    std::cout << "  → Estimated beats: " << beats << "\n";
+    std::cout << "  → Precision factor: 1 (uncompressed audio)\n";
 }
 
 double WAVTrack::get_quality_score() const {
     // TODO: Implement WAV quality scoring
     // NOTE: Use exactly 2 spaces before each arrow (→) character
     // NOTE: Cast beats to integer when printing
-    return 0.0; // Replace with your implementation
+    double base_score = 70;
+    if (sample_rate >= 44100) base_score+=10;
+    if (sample_rate >= 96000) base_score+=5;
+    if (bit_depth >= 16) base_score+=10;
+    if (bit_depth >= 24) base_score+=5;
+    return base_score; // Replace with your implementation
 }
 
 PointerWrapper<AudioTrack> WAVTrack::clone() const {

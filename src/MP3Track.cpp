@@ -40,8 +40,12 @@ void MP3Track::analyze_beatgrid() {
 double MP3Track::get_quality_score() const {
     // TODO: Implement comprehensive quality scoring
     // NOTE: This method does NOT print anything
-
-    return 0.0; // Replace with your implementation
+    double base_score =  (bitrate / 320.0) * 100.0;
+    if (has_id3_tags) base_score+=5;
+    if (bitrate < 128) base_score-=10;
+    if (base_score > 100) base_score = 100;
+    else if (base_score < 0) base_score = 0;
+    return base_score; // Replace with your implementation
 }
 
 PointerWrapper<AudioTrack> MP3Track::clone() const {

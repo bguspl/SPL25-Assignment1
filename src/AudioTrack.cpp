@@ -36,7 +36,7 @@ AudioTrack::~AudioTrack() {
     std::cout << "AudioTrack destructor called for: " << title << std::endl;
     #endif
     // Your code here...
-    delete waveform_data;
+    delete[] waveform_data;
 }
 
 AudioTrack::AudioTrack(const AudioTrack& other)
@@ -69,7 +69,7 @@ AudioTrack& AudioTrack::operator=(const AudioTrack& other) {
         duration_seconds = other.duration_seconds;
         bpm = other.bpm;
         waveform_size = other.waveform_size;
-        delete waveform_data;
+        delete[] waveform_data;
         waveform_data = new double [waveform_size];
         for (int i = 0; i < waveform_size; i++) {
             waveform_data[i] = other.waveform_data[i];
@@ -107,7 +107,7 @@ AudioTrack& AudioTrack::operator=(AudioTrack&& other) noexcept {
         duration_seconds = other.duration_seconds;
         bpm = other.bpm;
         waveform_size = other.waveform_size;
-        delete waveform_data;
+        delete[] waveform_data;
         waveform_data = other.waveform_data;
         other.waveform_size = 0;
         other.waveform_data = nullptr;
