@@ -10,7 +10,7 @@ AudioTrack::AudioTrack(const std::string& title, const std::vector<std::string>&
 
     // Allocate memory for waveform analysis
     waveform_data = new double[waveform_size];
-
+////bbubububu
     // Generate some dummy waveform data for testing
     std::random_device rd;
     std::mt19937 gen(rd());
