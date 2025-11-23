@@ -2,6 +2,7 @@
 #include <iostream>
 #include <cstring>
 #include <random>
+#include <utility>
 
 AudioTrack::AudioTrack(const std::string& title, const std::vector<std::string>& artists, 
                       int duration, int bpm, size_t waveform_samples)
@@ -35,16 +36,29 @@ AudioTrack::~AudioTrack() {
     #ifdef DEBUG
     std::cout << "AudioTrack destructor called for: " << title << std::endl;
     #endif
-    // Your code here...
+    delete[] waveform_data;
 }
 
 AudioTrack::AudioTrack(const AudioTrack& other)
+    :title(other.title),
+    artists(other.artists),
+    bpm(other.bpm),
+    duration_seconds(other.duration_seconds),
+    waveform_size(other.waveform_size) 
 {
     // TODO: Implement the copy constructor
     #ifdef DEBUG
     std::cout << "AudioTrack copy constructor called for: " << other.title << std::endl;
     #endif
-    // Your code here...
+    if(other.waveform_data) {
+        waveform_data = new double[waveform_size];
+        for(int i=0; i<waveform_size; i++) {
+            waveform_data[i] = other.waveform_data[i];
+        }
+    }
+    else {
+        waveform_data = nullptr;
+    }
 }
 
 AudioTrack& AudioTrack::operator=(const AudioTrack& other) {
@@ -52,27 +66,62 @@ AudioTrack& AudioTrack::operator=(const AudioTrack& other) {
     #ifdef DEBUG
     std::cout << "AudioTrack copy assignment called for: " << other.title << std::endl;
     #endif
-    // Your code here...
+    if (this != &other) {
+        title = other.title;
+        artists = other.artists;
+        bpm = other.bpm;
+        duration_seconds = other.duration_seconds;
+        waveform_size = other.waveform_size;
+        if(waveform_data) {
+            delete[] waveform_data;
+        }
+        if(other.waveform_data) {
+            waveform_data = new double[other.waveform_size];
+            for(int i=0; i<waveform_size; i++) {
+                waveform_data[i] = other.waveform_data[i];
+            }
+        }
+        else {
+           waveform_data = nullptr; 
+        }
+    }
     return *this;
 }
 
-AudioTrack::AudioTrack(AudioTrack&& other) noexcept {
+AudioTrack::AudioTrack(AudioTrack&& other) noexcept 
+    :title(std::move(other.title)),
+    artists(std::move(other.artists)),
+    bpm(other.bpm),
+    duration_seconds(other.duration_seconds),
+    waveform_size(other.waveform_size)
+    {
     // TODO: Implement the move constructor
     #ifdef DEBUG
     std::cout << "AudioTrack move constructor called for: " << other.title << std::endl;
     #endif
-    // Your code here...
+    waveform_data = other.waveform_data;
+    other.waveform_data = nullptr;
+    
 }
 
 AudioTrack& AudioTrack::operator=(AudioTrack&& other) noexcept {
     // TODO: Implement the move assignment operator
-
     #ifdef DEBUG
     std::cout << "AudioTrack move assignment called for: " << other.title << std::endl;
     #endif
-    // Your code here...
+    if(this != &other) {
+        title = std::move(other.title);
+        artists = std::move(other.artists);
+        bpm = other.bpm;
+        duration_seconds = other.duration_seconds;
+        waveform_size = other.waveform_size;
+        delete[] waveform_data;
+        waveform_data = other.waveform_data;
+        other.waveform_data = nullptr;
+    }
     return *this;
 }
+    
 
 void AudioTrack::get_waveform_copy(double* buffer, size_t buffer_size) const {
     if (buffer && waveform_data && buffer_size <= waveform_size) {

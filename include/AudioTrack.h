@@ -23,7 +23,7 @@ protected:
     std::vector<std::string> artists;
     int duration_seconds;
     int bpm;  // beats per minute for mixing
-    double* waveform_data;  // Dynamic array for audio analysis
+    double* waveform_data = nullptr;  // Dynamic array for audio analysis, pre-initializing for safety
     size_t waveform_size;   // Size of the waveform array
 
 public:

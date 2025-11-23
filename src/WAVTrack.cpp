@@ -13,27 +13,38 @@ WAVTrack::WAVTrack(const std::string& title, const std::vector<std::string>& art
 void WAVTrack::load() {
     // TODO: Implement realistic WAV loading simulation
     // NOTE: Use exactly 2 spaces before the arrow (→) character
+    std::cout << "[WAVTrack::load] Loading WAV: \"" << title 
+    << "\" at " << sample_rate << " Hz/ " << bit_depth << " bit (uncompressed)...\n";
+    long long size = duration_seconds * sample_rate * (bit_depth / 8) * 2;
+    std::cout << "  → Estimated file size: " << size << " bytes\n";
+    std::cout << "  → Fast loading due to uncompressed format\n";
 
 }
 
 void WAVTrack::analyze_beatgrid() {
     std::cout << "[WAVTrack::analyze_beatgrid] Analyzing beat grid for: \"" << title << "\"\n";
     // TODO: Implement WAV-specific beat detection analysis
-    // Requirements:
-    // 1. Print analysis message with track title
-    // 2. Calculate beats: (duration_seconds / 60.0) * bpm
-    // 3. Print number of beats and mention uncompressed precision
-    // should print "  → Estimated beats: <beats>  → Precision factor: 1.0 (uncompressed audio)"
+    // NOTE: Use exactly 2 spaces before each arrow (→) character
+    // NOTE: Cast beats to integer when printing
+    double estimated_beats = (duration_seconds / 60.0) * bpm;
+    std::cout << "  → Estimated beats: " << (int)estimated_beats <<
+     "  → Precision factor: 1 (uncompressed audio)\n";
 }
 
 double WAVTrack::get_quality_score() const {
     // TODO: Implement WAV quality scoring
-    // NOTE: Use exactly 2 spaces before each arrow (→) character
-    // NOTE: Cast beats to integer when printing
-    return 0.0; // Replace with your implementation
+    double score = 70; // base score
+    if (sample_rate >= 44100) score += 10;
+    if (sample_rate >= 96000) score += 5;
+    if (bit_depth >= 16) score += 10;
+    if (bit_depth >= 24) score += 5;
+    // keeping max score of 100
+    if (score > 100) score = 100.0;
+    return score; // Replace with your implementation
 }
 
 PointerWrapper<AudioTrack> WAVTrack::clone() const {
     // TODO: Implement the clone method
-    return PointerWrapper<AudioTrack>(nullptr); // Replace with your implementation
+    WAVTrack* newWAV = new WAVTrack(*this);
+    return PointerWrapper<AudioTrack>(newWAV);
 }
