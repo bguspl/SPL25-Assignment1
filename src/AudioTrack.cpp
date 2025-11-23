@@ -63,7 +63,7 @@ AudioTrack& AudioTrack::operator=(const AudioTrack& other) {
     #ifdef DEBUG
     std::cout << "AudioTrack copy assignment called for: " << other.title << std::endl;
     #endif
-    //כוסאמא של העבוטדה המזדיין הזאת בת זונה
+  
   if(&other!=this)
   {    
     title=other.title;
@@ -108,9 +108,6 @@ AudioTrack& AudioTrack::operator=(AudioTrack&& other) noexcept {
     this->duration_seconds = other.duration_seconds;
     this->bpm = other.bpm;
     this->waveform_size = other.waveform_size; 
-
-    // 3. איפוס המקור (כדי למנוע שחרור זיכרון כפול)
-    // הערכים המורכבים (title, artists) מאופסים אוטומטית ע"י ה-std::move
     other.duration_seconds = 0;
     other.bpm = 0;
     other.waveform_size = 0;
