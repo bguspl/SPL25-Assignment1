@@ -40,7 +40,8 @@
     "files.associations": {
         "*.h": "cpp",
         "*.cpp": "cpp",
-        "*.txt": "plaintext"
+        "*.txt": "plaintext",
+        "new": "cpp"
     },
     
     // Editor settings for academic integrity
