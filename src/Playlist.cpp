@@ -13,14 +13,14 @@ Playlist::~Playlist() {
     std::cout << "Destroying playlist: " << playlist_name << std::endl;
     #endif
     if(head) {
-        PlaylistNode* current = head;
-        PlaylistNode* prev;
-        while(current->next) {
-            prev = current;
-            current = current->next;
-            delete prev;
+        PlaylistNode* curr = head;
+        while(curr){
+            PlaylistNode* nxt = curr -> next;
+            delete curr -> track;
+            delete curr;
+            curr = nxt;
         }
-        delete current;
+        head = nullptr;
     }
 }
 
@@ -60,8 +60,8 @@ void Playlist::remove_track(const std::string& title) {
         } else {
             head = current->next;
         }
+        delete current -> track;
         delete current; // defultive PlaylistNode destruction prevents the destruction of all next nodes
-
         track_count--;
         std::cout << "Removed '" << title << "' from playlist" << std::endl;
 

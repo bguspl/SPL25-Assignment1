@@ -52,7 +52,7 @@ AudioTrack::AudioTrack(const AudioTrack& other)
     #endif
     if(other.waveform_data) {
         waveform_data = new double[waveform_size];
-        for(int i=0; i<waveform_size; i++) {
+        for(size_t i=0; i<other.waveform_size; i++) {
             waveform_data[i] = other.waveform_data[i];
         }
     }
@@ -76,13 +76,13 @@ AudioTrack& AudioTrack::operator=(const AudioTrack& other) {
             delete[] waveform_data;
         }
         if(other.waveform_data) {
-            waveform_data = new double[other.waveform_size];
-            for(int i=0; i<waveform_size; i++) {
+            this -> waveform_data = new double[other.waveform_size];
+            for(size_t i=0; i < other.waveform_size; i++) {
                 waveform_data[i] = other.waveform_data[i];
             }
         }
         else {
-           waveform_data = nullptr; 
+          this ->  waveform_data = nullptr; 
         }
     }
     return *this;
