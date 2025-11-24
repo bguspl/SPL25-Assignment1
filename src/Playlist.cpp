@@ -8,7 +8,7 @@ Playlist::Playlist(const std::string& name)
 }
 // TODO: Fix memory leaks!
 // Students must fix this in Phase 1
-Playlist::~Playlist()
+Playlist::~Playlist() 
  {
     PlaylistNode* current = head;
     while (current != nullptr) {
@@ -27,10 +27,8 @@ void Playlist::add_track(AudioTrack* track) {
         std::cout << "[Error] Cannot add null track to playlist" << std::endl;
         return;
     }
-
     // Create new node - this allocates memory!
     PlaylistNode* new_node = new PlaylistNode(track);
-
     // Add to front of list
     new_node->next = head;
     head = new_node;
@@ -133,3 +131,4 @@ std::vector<AudioTrack*> Playlist::getTracks() const {
         current = current->next;
     }
     return tracks;
+}
