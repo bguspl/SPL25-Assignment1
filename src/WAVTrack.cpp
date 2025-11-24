@@ -7,7 +7,7 @@ WAVTrack::WAVTrack(const std::string& title, const std::vector<std::string>& art
 
     std::cout << "WAVTrack created: " << sample_rate << "Hz/" << bit_depth << "bit" << std::endl;
 }
-
+//dddddd
 // ========== TODO: STUDENTS IMPLEMENT THESE VIRTUAL FUNCTIONS ==========
 
 void WAVTrack::load() {
@@ -52,7 +52,7 @@ double WAVTrack::get_quality_score() const
     if (bit_depth >= 16) score += 10;
     if (bit_depth >= 24)  score += 5;
     if (score > 100.0)  return 100.0;
-    return score;s
+    return score;
 }
 
 PointerWrapper<AudioTrack> WAVTrack::clone() const {
