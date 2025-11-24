@@ -144,8 +144,9 @@ public:
      */
     explicit operator bool() const {
         if(ptr!=nullptr)
-            return false;
-        return true; //placeholder
+            return true;
+        return false; 
+        //placeholder
     }
 
     /**
