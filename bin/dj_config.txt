@@ -1,0 +1,23 @@
+# DJ Track Library Manager
+# Application Settings
+app_name=DJ Track Library Manager
+version=2.0
+
+# Track Library Definition
+# Format: library_track_i=type,title,{artist1;artist2;...},duration,bpm,extra_param1,extra_param2
+library_track_1=MP3,Silence,{Delerium;Sarah McLachlan;},360,140,192,1
+library_track_2=WAV,For An Angel,{Paul van Dyk;},420,135,96000,24
+library_track_3=MP3,9PM (Till I Come),{ATB;},360,125,320,1
+
+# Cache Settings
+controller_cache_size=3
+
+# Mixing Settings
+bpm_tolerance=10
+auto_sync=true
+
+# Playlists
+# Format: playlistname=index_1,index_2,...,index_m
+progressive_house=1,2,3
+trance_classics=2,1
+test_playlist=1,2,3,1,2

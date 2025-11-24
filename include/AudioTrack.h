@@ -109,5 +109,5 @@ public:
     std::vector<std::string> get_artists() const { return artists; }
 
     // ADDED FUNCTION - set_bpm()
-    int set_bpm(int new_bpm) { bpm = new_bpm; }
+    void set_bpm(int new_bpm) { bpm = new_bpm; }
 };

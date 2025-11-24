@@ -16,6 +16,7 @@ Playlist::~Playlist() {
     PlaylistNode* current = head;
     while (current) {
         PlaylistNode* next = current->next;
+        delete current->track;
         delete current;
         current = next;
     }
@@ -59,6 +60,7 @@ void Playlist::remove_track(const std::string& title) {
             head = current->next;
         }
         //delete the node and track
+        delete current->track;
         delete current;
         track_count--;
         std::cout << "Removed '" << title << "' from playlist" << std::endl;
@@ -135,9 +137,4 @@ std::vector<AudioTrack*> Playlist::getTracks() const {      //Why return pointer
         current = current->next;
     }
     return tracks;
-}
-
-PlaylistNode::~PlaylistNode(){
-    delete track;
-    next = nullptr;
 }
