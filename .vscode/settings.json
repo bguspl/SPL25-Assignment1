@@ -42,6 +42,9 @@
         "*.cpp": "cpp",
         "*.txt": "plaintext",
         "new": "cpp",
+<<<<<<< HEAD
+        "algorithm": "cpp"
+=======
         "array": "cpp",
         "atomic": "cpp",
         "bit": "cpp",
@@ -98,6 +101,7 @@
         "typeinfo": "cpp",
         "variant": "cpp",
         "format": "cpp"
+>>>>>>> origin/ziv-work
     },
     
     // Editor settings for academic integrity
