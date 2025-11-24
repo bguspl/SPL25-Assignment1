@@ -52,7 +52,7 @@ double WAVTrack::get_quality_score() const
     if (bit_depth >= 16) score += 10;
     if (bit_depth >= 24)  score += 5;
     if (score > 100.0)  return 100.0;
-    return score;s
+    return score;
 }
 
 PointerWrapper<AudioTrack> WAVTrack::clone() const {
