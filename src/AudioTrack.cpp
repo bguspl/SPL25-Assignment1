@@ -81,7 +81,7 @@ AudioTrack& AudioTrack::operator=(const AudioTrack& other) {
 }
 
 AudioTrack::AudioTrack(AudioTrack&& other) noexcept
-    : title(std::move(other.title)),
+    : title(other.title),
       artists(std::move(other.artists)),
       duration_seconds(other.duration_seconds),
       bpm(other.bpm),
@@ -97,6 +97,7 @@ AudioTrack::AudioTrack(AudioTrack&& other) noexcept
     other.waveform_size = 0;
     other.duration_seconds = 0;
     other.bpm = 0;
+    other.title = "";
 }
 
 AudioTrack& AudioTrack::operator=(AudioTrack&& other) noexcept {
