@@ -19,8 +19,8 @@ struct PlaylistNode {
     AudioTrack* track; 
     PlaylistNode* next;
 
-    PlaylistNode(AudioTrack* t) : track(t), next(nullptr) {}
-    ~PlaylistNode() = default;
+PlaylistNode(AudioTrack* t) : track(t), next(nullptr) {}
+    ~PlaylistNode() = default; 
 };
 
 class Playlist {

@@ -23,7 +23,7 @@
  * Students must fix the issues to make this program run cleanly.
  */
 
-bool del = false; // hint: what is the purpose of this variable? how it changes the ownership semantics?
+bool del = true; // hint: what is the purpose of this variable? how it changes the ownership semantics?
 void test_phase_1_memory_leaks() {
     
     std::cout << "\n======== PHASE 1: MEMORY LEAK TESTING ========" << std::endl;
