@@ -174,24 +174,51 @@ void MixingEngineService::displayDeckStatus() const
 }
 
 /**
- * TODO: Implement can_mix_tracks method
- *
- * Check if two tracks can be mixed based on BPM difference.
- *
  * @param track: Track to check for mixing compatibility
  * @return: true if BPM difference <= tolerance, false otherwise
  */
 bool MixingEngineService::can_mix_tracks(const PointerWrapper<AudioTrack> &track) const
 {
-    // Your implementation here
-    return false; // Placeholder
+    // Verify that deck is not null
+    if (!decks[active_deck])
+    {
+        return false;
+    }
+
+    // Verify that the input track wrapper contains a valid pointer
+    if (!track.get())
+    {
+        return false;
+    }
+
+    // Calculate abs BPM
+    int active_deck_bpm = decks[active_deck]->get_bpm();
+    int new_track_bpm = track->get_bpm();
+    if (std::abs(active_deck_bpm - new_track_bpm) <= bpm_tolerance)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 
 /**
- * TODO: Implement sync_bpm method
  * @param track: Track to synchronize with active deck
  */
 void MixingEngineService::sync_bpm(const PointerWrapper<AudioTrack> &track) const
 {
-    // Your implementation here
+    // Verify both active deck and new track are valid
+    if (decks[active_deck] && track){
+
+        // Get original BPM
+        int new_track_bpm = track->get_bpm();
+
+        // Get original BPM
+        int average_bpm = (new_track_bpm + decks[active_deck]->get_bpm()) / 2;
+        //track.get()->bpm = average_bpm;
+
+        std::cout << "[Sync BPM] Syncing BPM from" << decks[active_deck] << "to " << track->get_title() << std::endl;
+    }
 }
