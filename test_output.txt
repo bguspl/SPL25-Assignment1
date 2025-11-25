@@ -79,7 +79,7 @@ Smart pointer contains: Smart Track
 BPM: 130
 
 Testing move operations...
-Move constructor called for: 0x7fff47850288
+Move constructor called for: 0x7ffdc6562cb8
 Original pointer after move: null
 Moved pointer: valid
 
@@ -87,7 +87,7 @@ Testing reset...
 AudioTrack created: Reset Track by 
 Reset Artist 
 MP3Track created: 256 kbps
-Reset called for pointer: 0x5602b37c42e0
+Reset called for pointer: 0x55fef503a350
 AudioTrack destructor called for: Smart Track
 
 Testing release...

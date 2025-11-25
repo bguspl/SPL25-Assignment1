@@ -1,0 +1,467 @@
+
+============= RUNNING INTERACTIVE SOFTWARE =============
+Created playlist: 
+[MixingEngineService] Initialized with 2 empty decks.
+DJ Session System initialized: Interactive Session
+=== DJ Controller System ===
+Starting interactive DJ session...
+Loading configuration from: bin/dj_config.txt
+Parsed config file: 3 tracks found, 3 playlists found
+Configuration loaded successfully.
+BPM Tolerance: 10 BPM
+Auto Sync: enabled
+Cache Size: 3 slots
+[INFO] Building track library from config...
+MP3Track created: 192 kbps
+WAVTrack created: 96000Hz/24bit
+MP3Track created: 320 kbps
+[INFO] Track library built: 3 tracks loaded
+
+Starting DJ performance simulation...
+BPM Tolerance: 10 BPM
+Auto Sync: enabled
+Cache Capacity: 3 slots (LRU policy)
+
+--- Processing Tracks ---
+[System] Loading playlist: progressive_house
+[INFO] Loading playlist: progressive_house
+Created playlist: progressive_house
+[MP3Track::load] Loading MP3: "Silence" at 192 kbps...
+  → Processing ID3 metadata (artist info, album art, etc.)...
+  → Decoding MP3 frames...
+  → Load complete.
+[MP3Track::analyze_beatgrid] Analyzing beat grid for: "Silence"
+  → Estimated beats: 840  → Compression precision factor: 0.6
+Added 'Silence' to playlist 'progressive_house'
+[WAVTrack::load] Loading WAV: "For An Angel" at 96000Hz/24bit (uncompressed)...
+  → Estimated file size: 241920000 bytes
+  → Fast loading due to uncompressed format.
+[WAVTrack::analyze_beatgrid] Analyzing beat grid for: "For An Angel"
+  → Estimated beats: 945  → Precision factor: 1 (uncompressed audio)
+Added 'For An Angel' to playlist 'progressive_house'
+[MP3Track::load] Loading MP3: "9PM (Till I Come)" at 320 kbps...
+  → Processing ID3 metadata (artist info, album art, etc.)...
+  → Decoding MP3 frames...
+  → Load complete.
+[MP3Track::analyze_beatgrid] Analyzing beat grid for: "9PM (Till I Come)"
+  → Estimated beats: 750  → Compression precision factor: 1
+Added '9PM (Till I Come)' to playlist 'progressive_house'
+[INFO] Playlist loaded: progressive_house (3 tracks)
+
+--- Processing: 9PM (Till I Come) ---
+[System] Loading track '9PM (Till I Come)' to controller...
+[Cache MISS] Cloning track into cache: 9PM (Till I Come)
+[MP3Track::load] Loading MP3: "9PM (Till I Come)" at 320 kbps...
+  → Processing ID3 metadata (artist info, album art, etc.)...
+  → Decoding MP3 frames...
+  → Load complete.
+[MP3Track::analyze_beatgrid] Analyzing beat grid for: "9PM (Till I Come)"
+  → Estimated beats: 750  → Compression precision factor: 1
+[Cache INSERT] Added '9PM (Till I Come)' to cache.
+
+=== Cache Status ===
+[LRUCache] Status: 1/3 slots used
+  Slot 0: 9PM (Till I Come) (last access: 1)
+  Slot 1: [EMPTY]
+  Slot 2: [EMPTY]
+====================
+[System] Delegating track transfer to MixingEngineService for: 9PM (Till I Come)
+
+=== Loading Track to Deck ===
+[Deck Switch] Target deck: 1
+[MP3Track::load] Loading MP3: "9PM (Till I Come)" at 320 kbps...
+  → Processing ID3 metadata (artist info, album art, etc.)...
+  → Decoding MP3 frames...
+  → Load complete.
+[MP3Track::analyze_beatgrid] Analyzing beat grid for: "9PM (Till I Come)"
+  → Estimated beats: 750  → Compression precision factor: 1
+[Load Complete] '9PM (Till I Come)' is now loaded on deck 1
+[Active Deck] Switched to deck 1
+
+=== Deck Status ===
+Deck 0: [EMPTY]
+Deck 1: 9PM (Till I Come)
+Active Deck: 1
+===================
+
+--- Processing: For An Angel ---
+[System] Loading track 'For An Angel' to controller...
+[Cache MISS] Cloning track into cache: For An Angel
+[WAVTrack::load] Loading WAV: "For An Angel" at 96000Hz/24bit (uncompressed)...
+  → Estimated file size: 241920000 bytes
+  → Fast loading due to uncompressed format.
+[WAVTrack::analyze_beatgrid] Analyzing beat grid for: "For An Angel"
+  → Estimated beats: 945  → Precision factor: 1 (uncompressed audio)
+[Cache INSERT] Added 'For An Angel' to cache.
+
+=== Cache Status ===
+[LRUCache] Status: 2/3 slots used
+  Slot 0: 9PM (Till I Come) (last access: 2)
+  Slot 1: For An Angel (last access: 3)
+  Slot 2: [EMPTY]
+====================
+[System] Delegating track transfer to MixingEngineService for: For An Angel
+
+=== Loading Track to Deck ===
+[Deck Switch] Target deck: 0
+[WAVTrack::load] Loading WAV: "For An Angel" at 96000Hz/24bit (uncompressed)...
+  → Estimated file size: 241920000 bytes
+  → Fast loading due to uncompressed format.
+[WAVTrack::analyze_beatgrid] Analyzing beat grid for: "For An Angel"
+  → Estimated beats: 945  → Precision factor: 1 (uncompressed audio)
+[Sync BPM] Syncing BPM from 135 to 130
+[Load Complete] 'For An Angel' is now loaded on deck 0
+[Unload] Unloading previous deck 1 (9PM (Till I Come))
+[Active Deck] Switched to deck 0
+
+=== Deck Status ===
+Deck 0: For An Angel
+Deck 1: [EMPTY]
+Active Deck: 0
+===================
+
+--- Processing: Silence ---
+[System] Loading track 'Silence' to controller...
+[Cache MISS] Cloning track into cache: Silence
+[MP3Track::load] Loading MP3: "Silence" at 192 kbps...
+  → Processing ID3 metadata (artist info, album art, etc.)...
+  → Decoding MP3 frames...
+  → Load complete.
+[MP3Track::analyze_beatgrid] Analyzing beat grid for: "Silence"
+  → Estimated beats: 840  → Compression precision factor: 0.6
+[Cache INSERT] Added 'Silence' to cache.
+
+=== Cache Status ===
+[LRUCache] Status: 3/3 slots used
+  Slot 0: 9PM (Till I Come) (last access: 2)
+  Slot 1: For An Angel (last access: 4)
+  Slot 2: Silence (last access: 5)
+====================
+[System] Delegating track transfer to MixingEngineService for: Silence
+
+=== Loading Track to Deck ===
+[Deck Switch] Target deck: 1
+[MP3Track::load] Loading MP3: "Silence" at 192 kbps...
+  → Processing ID3 metadata (artist info, album art, etc.)...
+  → Decoding MP3 frames...
+  → Load complete.
+[MP3Track::analyze_beatgrid] Analyzing beat grid for: "Silence"
+  → Estimated beats: 840  → Compression precision factor: 0.6
+[Sync BPM] Syncing BPM from 140 to 135
+[Load Complete] 'Silence' is now loaded on deck 1
+[Unload] Unloading previous deck 0 (For An Angel)
+[Active Deck] Switched to deck 1
+
+=== Deck Status ===
+Deck 0: [EMPTY]
+Deck 1: Silence
+Active Deck: 1
+===================
+
+=== DJ Session Summary ===
+Session: Interactive Session
+Tracks processed: 3
+Cache hits: 0
+Cache misses: 3
+Cache evictions: 0
+Deck A loads: 1
+Deck B loads: 2
+Transitions: 3
+Errors: 0
+=== Session Complete ===
+[System] Loading playlist: test_playlist
+[INFO] Loading playlist: test_playlist
+Created playlist: test_playlist
+[MP3Track::load] Loading MP3: "Silence" at 192 kbps...
+  → Processing ID3 metadata (artist info, album art, etc.)...
+  → Decoding MP3 frames...
+  → Load complete.
+[MP3Track::analyze_beatgrid] Analyzing beat grid for: "Silence"
+  → Estimated beats: 840  → Compression precision factor: 0.6
+Added 'Silence' to playlist 'test_playlist'
+[WAVTrack::load] Loading WAV: "For An Angel" at 96000Hz/24bit (uncompressed)...
+  → Estimated file size: 241920000 bytes
+  → Fast loading due to uncompressed format.
+[WAVTrack::analyze_beatgrid] Analyzing beat grid for: "For An Angel"
+  → Estimated beats: 945  → Precision factor: 1 (uncompressed audio)
+Added 'For An Angel' to playlist 'test_playlist'
+[MP3Track::load] Loading MP3: "9PM (Till I Come)" at 320 kbps...
+  → Processing ID3 metadata (artist info, album art, etc.)...
+  → Decoding MP3 frames...
+  → Load complete.
+[MP3Track::analyze_beatgrid] Analyzing beat grid for: "9PM (Till I Come)"
+  → Estimated beats: 750  → Compression precision factor: 1
+Added '9PM (Till I Come)' to playlist 'test_playlist'
+[MP3Track::load] Loading MP3: "Silence" at 192 kbps...
+  → Processing ID3 metadata (artist info, album art, etc.)...
+  → Decoding MP3 frames...
+  → Load complete.
+[MP3Track::analyze_beatgrid] Analyzing beat grid for: "Silence"
+  → Estimated beats: 840  → Compression precision factor: 0.6
+Added 'Silence' to playlist 'test_playlist'
+[WAVTrack::load] Loading WAV: "For An Angel" at 96000Hz/24bit (uncompressed)...
+  → Estimated file size: 241920000 bytes
+  → Fast loading due to uncompressed format.
+[WAVTrack::analyze_beatgrid] Analyzing beat grid for: "For An Angel"
+  → Estimated beats: 945  → Precision factor: 1 (uncompressed audio)
+Added 'For An Angel' to playlist 'test_playlist'
+[INFO] Playlist loaded: test_playlist (5 tracks)
+
+--- Processing: For An Angel ---
+[System] Loading track 'For An Angel' to controller...
+[Cache HIT] For An Angel found in cache. Refreshing MRU state.
+
+=== Cache Status ===
+[LRUCache] Status: 3/3 slots used
+  Slot 0: 9PM (Till I Come) (last access: 2)
+  Slot 1: For An Angel (last access: 7)
+  Slot 2: Silence (last access: 6)
+====================
+[System] Delegating track transfer to MixingEngineService for: For An Angel
+
+=== Loading Track to Deck ===
+[Deck Switch] Target deck: 0
+[WAVTrack::load] Loading WAV: "For An Angel" at 96000Hz/24bit (uncompressed)...
+  → Estimated file size: 241920000 bytes
+  → Fast loading due to uncompressed format.
+[WAVTrack::analyze_beatgrid] Analyzing beat grid for: "For An Angel"
+  → Estimated beats: 945  → Precision factor: 1 (uncompressed audio)
+[Sync BPM] Syncing BPM from 135 to 135
+[Load Complete] 'For An Angel' is now loaded on deck 0
+[Unload] Unloading previous deck 1 (Silence)
+[Active Deck] Switched to deck 0
+
+=== Deck Status ===
+Deck 0: For An Angel
+Deck 1: [EMPTY]
+Active Deck: 0
+===================
+
+--- Processing: Silence ---
+[System] Loading track 'Silence' to controller...
+[Cache HIT] Silence found in cache. Refreshing MRU state.
+
+=== Cache Status ===
+[LRUCache] Status: 3/3 slots used
+  Slot 0: 9PM (Till I Come) (last access: 2)
+  Slot 1: For An Angel (last access: 8)
+  Slot 2: Silence (last access: 9)
+====================
+[System] Delegating track transfer to MixingEngineService for: Silence
+
+=== Loading Track to Deck ===
+[Deck Switch] Target deck: 1
+[MP3Track::load] Loading MP3: "Silence" at 192 kbps...
+  → Processing ID3 metadata (artist info, album art, etc.)...
+  → Decoding MP3 frames...
+  → Load complete.
+[MP3Track::analyze_beatgrid] Analyzing beat grid for: "Silence"
+  → Estimated beats: 840  → Compression precision factor: 0.6
+[Sync BPM] Syncing BPM from 140 to 137
+[Load Complete] 'Silence' is now loaded on deck 1
+[Unload] Unloading previous deck 0 (For An Angel)
+[Active Deck] Switched to deck 1
+
+=== Deck Status ===
+Deck 0: [EMPTY]
+Deck 1: Silence
+Active Deck: 1
+===================
+
+--- Processing: 9PM (Till I Come) ---
+[System] Loading track '9PM (Till I Come)' to controller...
+[Cache HIT] 9PM (Till I Come) found in cache. Refreshing MRU state.
+
+=== Cache Status ===
+[LRUCache] Status: 3/3 slots used
+  Slot 0: 9PM (Till I Come) (last access: 11)
+  Slot 1: For An Angel (last access: 8)
+  Slot 2: Silence (last access: 10)
+====================
+[System] Delegating track transfer to MixingEngineService for: 9PM (Till I Come)
+
+=== Loading Track to Deck ===
+[Deck Switch] Target deck: 0
+[MP3Track::load] Loading MP3: "9PM (Till I Come)" at 320 kbps...
+  → Processing ID3 metadata (artist info, album art, etc.)...
+  → Decoding MP3 frames...
+  → Load complete.
+[MP3Track::analyze_beatgrid] Analyzing beat grid for: "9PM (Till I Come)"
+  → Estimated beats: 750  → Compression precision factor: 1
+[Load Complete] '9PM (Till I Come)' is now loaded on deck 0
+[Unload] Unloading previous deck 1 (Silence)
+[Active Deck] Switched to deck 0
+
+=== Deck Status ===
+Deck 0: 9PM (Till I Come)
+Deck 1: [EMPTY]
+Active Deck: 0
+===================
+
+--- Processing: For An Angel ---
+[System] Loading track 'For An Angel' to controller...
+[Cache HIT] For An Angel found in cache. Refreshing MRU state.
+
+=== Cache Status ===
+[LRUCache] Status: 3/3 slots used
+  Slot 0: 9PM (Till I Come) (last access: 12)
+  Slot 1: For An Angel (last access: 13)
+  Slot 2: Silence (last access: 10)
+====================
+[System] Delegating track transfer to MixingEngineService for: For An Angel
+
+=== Loading Track to Deck ===
+[Deck Switch] Target deck: 1
+[WAVTrack::load] Loading WAV: "For An Angel" at 96000Hz/24bit (uncompressed)...
+  → Estimated file size: 241920000 bytes
+  → Fast loading due to uncompressed format.
+[WAVTrack::analyze_beatgrid] Analyzing beat grid for: "For An Angel"
+  → Estimated beats: 945  → Precision factor: 1 (uncompressed audio)
+[Sync BPM] Syncing BPM from 135 to 130
+[Load Complete] 'For An Angel' is now loaded on deck 1
+[Unload] Unloading previous deck 0 (9PM (Till I Come))
+[Active Deck] Switched to deck 1
+
+=== Deck Status ===
+Deck 0: [EMPTY]
+Deck 1: For An Angel
+Active Deck: 1
+===================
+
+--- Processing: Silence ---
+[System] Loading track 'Silence' to controller...
+[Cache HIT] Silence found in cache. Refreshing MRU state.
+
+=== Cache Status ===
+[LRUCache] Status: 3/3 slots used
+  Slot 0: 9PM (Till I Come) (last access: 12)
+  Slot 1: For An Angel (last access: 14)
+  Slot 2: Silence (last access: 15)
+====================
+[System] Delegating track transfer to MixingEngineService for: Silence
+
+=== Loading Track to Deck ===
+[Deck Switch] Target deck: 0
+[MP3Track::load] Loading MP3: "Silence" at 192 kbps...
+  → Processing ID3 metadata (artist info, album art, etc.)...
+  → Decoding MP3 frames...
+  → Load complete.
+[MP3Track::analyze_beatgrid] Analyzing beat grid for: "Silence"
+  → Estimated beats: 840  → Compression precision factor: 0.6
+[Sync BPM] Syncing BPM from 140 to 135
+[Load Complete] 'Silence' is now loaded on deck 0
+[Unload] Unloading previous deck 1 (For An Angel)
+[Active Deck] Switched to deck 0
+
+=== Deck Status ===
+Deck 0: Silence
+Deck 1: [EMPTY]
+Active Deck: 0
+===================
+
+=== DJ Session Summary ===
+Session: Interactive Session
+Tracks processed: 8
+Cache hits: 5
+Cache misses: 3
+Cache evictions: 0
+Deck A loads: 4
+Deck B loads: 4
+Transitions: 8
+Errors: 0
+=== Session Complete ===
+[System] Loading playlist: trance_classics
+[INFO] Loading playlist: trance_classics
+Created playlist: trance_classics
+[WAVTrack::load] Loading WAV: "For An Angel" at 96000Hz/24bit (uncompressed)...
+  → Estimated file size: 241920000 bytes
+  → Fast loading due to uncompressed format.
+[WAVTrack::analyze_beatgrid] Analyzing beat grid for: "For An Angel"
+  → Estimated beats: 945  → Precision factor: 1 (uncompressed audio)
+Added 'For An Angel' to playlist 'trance_classics'
+[MP3Track::load] Loading MP3: "Silence" at 192 kbps...
+  → Processing ID3 metadata (artist info, album art, etc.)...
+  → Decoding MP3 frames...
+  → Load complete.
+[MP3Track::analyze_beatgrid] Analyzing beat grid for: "Silence"
+  → Estimated beats: 840  → Compression precision factor: 0.6
+Added 'Silence' to playlist 'trance_classics'
+[INFO] Playlist loaded: trance_classics (2 tracks)
+
+--- Processing: Silence ---
+[System] Loading track 'Silence' to controller...
+[Cache HIT] Silence found in cache. Refreshing MRU state.
+
+=== Cache Status ===
+[LRUCache] Status: 3/3 slots used
+  Slot 0: 9PM (Till I Come) (last access: 12)
+  Slot 1: For An Angel (last access: 14)
+  Slot 2: Silence (last access: 17)
+====================
+[System] Delegating track transfer to MixingEngineService for: Silence
+
+=== Loading Track to Deck ===
+[Deck Switch] Target deck: 1
+[MP3Track::load] Loading MP3: "Silence" at 192 kbps...
+  → Processing ID3 metadata (artist info, album art, etc.)...
+  → Decoding MP3 frames...
+  → Load complete.
+[MP3Track::analyze_beatgrid] Analyzing beat grid for: "Silence"
+  → Estimated beats: 840  → Compression precision factor: 0.6
+[Sync BPM] Syncing BPM from 140 to 137
+[Load Complete] 'Silence' is now loaded on deck 1
+[Unload] Unloading previous deck 0 (Silence)
+[Active Deck] Switched to deck 1
+
+=== Deck Status ===
+Deck 0: [EMPTY]
+Deck 1: Silence
+Active Deck: 1
+===================
+
+--- Processing: For An Angel ---
+[System] Loading track 'For An Angel' to controller...
+[Cache HIT] For An Angel found in cache. Refreshing MRU state.
+
+=== Cache Status ===
+[LRUCache] Status: 3/3 slots used
+  Slot 0: 9PM (Till I Come) (last access: 12)
+  Slot 1: For An Angel (last access: 19)
+  Slot 2: Silence (last access: 18)
+====================
+[System] Delegating track transfer to MixingEngineService for: For An Angel
+
+=== Loading Track to Deck ===
+[Deck Switch] Target deck: 0
+[WAVTrack::load] Loading WAV: "For An Angel" at 96000Hz/24bit (uncompressed)...
+  → Estimated file size: 241920000 bytes
+  → Fast loading due to uncompressed format.
+[WAVTrack::analyze_beatgrid] Analyzing beat grid for: "For An Angel"
+  → Estimated beats: 945  → Precision factor: 1 (uncompressed audio)
+[Sync BPM] Syncing BPM from 135 to 136
+[Load Complete] 'For An Angel' is now loaded on deck 0
+[Unload] Unloading previous deck 1 (Silence)
+[Active Deck] Switched to deck 0
+
+=== Deck Status ===
+Deck 0: For An Angel
+Deck 1: [EMPTY]
+Active Deck: 0
+===================
+
+=== DJ Session Summary ===
+Session: Interactive Session
+Tracks processed: 10
+Cache hits: 7
+Cache misses: 3
+Cache evictions: 0
+Deck A loads: 5
+Deck B loads: 5
+Transitions: 10
+Errors: 0
+=== Session Complete ===
+Session cancelled by user or all playlists played.
+============= INTERACTIVE SESSION ENDED =============
+
+Shutting down DJ Session System: Interactive Session
+[MixingEngineService] Cleaning up decks...
