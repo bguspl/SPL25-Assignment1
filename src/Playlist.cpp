@@ -10,7 +10,13 @@ Playlist::Playlist(const std::string& name)
 // Students must fix this in Phase 1
 Playlist::~Playlist() {
     #ifdef DEBUG
-    std::cout << "Destroying playlist: " << playlist_name << std::endl;
+    std::cout << "Destroying playlist: " << playlist_name << std::endl;    
+	PlaylistNode* current_node = head;
+    while(current_node != nullptr){
+        PlaylistNode* next_node = current_node -> next;
+        delete current_node;
+        current_node = next_node;
+    }
     #endif
 }
 
@@ -49,7 +55,7 @@ void Playlist::remove_track(const std::string& title) {
         } else {
             head = current->next;
         }
-
+		delete current;
         track_count--;
         std::cout << "Removed '" << title << "' from playlist" << std::endl;
 
