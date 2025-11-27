@@ -17,21 +17,38 @@ void MP3Track::load() {
               << "\" at " << bitrate << " kbps...\n";
     // TODO: Implement MP3 loading with format-specific operations
     // NOTE: Use exactly 2 spaces before the arrow (→) character
+    if(has_id3_tags){
+        std::cout << "  -> Processing ID3 metadata (artist info, album art, etc.)..." << std::endl;
+    }
+    else{
+        std::cout << "  ->No ID3 tags found." << std::endl;
+    }
+    std::cout << "  →Decoding MP3 frames..." << std::endl;
+    std::cout << "  -> Load complete" << std::endl;
     
 }
 
 void MP3Track::analyze_beatgrid() {
-     std::cout << "[MP3Track::analyze_beatgrid] Analyzing beat grid for: \"" << title << "\"\n";
+    std::cout << "[MP3Track::analyze_beatgrid] Analyzing beat grid for: \"" << title << "\"\n";
     // TODO: Implement MP3-specific beat detection analysis
     // NOTE: Use exactly 2 spaces before each arrow (→) character
-
+    int beats = (duration_seconds / 60) * bpm;
+    int precision_factor = bitrate / 320;
+    std::cout << "  ->Estimated beats: \"" << beats << "\"\n";
+    std::cout << "  ->Compression precision factor: " << precision_factor << std::endl;
 }
 
 double MP3Track::get_quality_score() const {
     // TODO: Implement comprehensive quality scoring
     // NOTE: This method does NOT print anything
-
-    return 0.0; // Replace with your implementation
+    double score = (bitrate / 320.0) * 100.0;
+    if(has_id3_tags){
+        score = score + 5;
+    }
+    if(bitrate > 128){
+        score = score + 10;
+    }
+    return score; // Replace with your implementation
 }
 
 PointerWrapper<AudioTrack> MP3Track::clone() const {
