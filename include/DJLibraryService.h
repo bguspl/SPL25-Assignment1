@@ -18,6 +18,19 @@ public:
     DJLibraryService() = default;
 
     /**
+     * Rule of 3 Implementation
+     */
+
+    // Destructor
+    ~DJLibraryService();
+
+    // Copy constructor
+    DJLibraryService(const DJLibraryService &other);
+
+    // Copy assignment
+    DJLibraryService &operator=(const DJLibraryService &other);
+
+    /**
      * @brief Build the track library from parsed config data
      * @param library_tracks Vector of track info from config
      */

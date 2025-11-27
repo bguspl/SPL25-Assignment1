@@ -7,18 +7,17 @@
 
 // ========== CONSTRUCTORS & RULE OF 5 ==========
 
-
-DJSession::DJSession(const std::string& name, bool play_all)
+DJSession::DJSession(const std::string &name, bool play_all)
     : session_name(name),
-    library_service(),
-    controller_service(),
-    mixing_service(),
-    config_manager(),
-    session_config(),
-    track_titles(),
-    play_all(play_all),
-    stats()
-      {
+      library_service(),
+      controller_service(),
+      mixing_service(),
+      config_manager(),
+      session_config(),
+      track_titles(),
+      play_all(play_all),
+      stats()
+{
     std::cout << "DJ Session System initialized: " << session_name << std::endl;
 }
 
@@ -53,44 +52,86 @@ bool DJSession::load_playlist(const std::string &playlist_name)
 }
 
 /**
- * TODO: Implement load_track_to_controller method
- *
- * REQUIREMENTS:
- * 1. Track Retrieval
- *    - Find track in library using track name
- *    - Handle case when track is not found
- *    - Update error stats if track not found
- *
- * 2. Controller Loading
- *    - Delegate loading to controller_service
- *    - Pass track by reference to controller
- *
- * 3. Return Values
- *    1: Cache HIT
- *    0: Cache MISS (or error)
- *   -1: Cache MISS with eviction
- *
  * @param track_name: Name of track to load
  * @return: Cache operation result code
-
  */
 int DJSession::load_track_to_controller(const std::string &track_name)
 {
-    // Your implementation here
-    return 0; // Placeholder
+    // Saving the track we found with the title
+    AudioTrack *track_to_load = library_service.findTrack(track_name);
+
+    // Checking if exists
+    if (!track_to_load)
+    {
+        std::cerr << "  [ERROR] Track: " << track_name << " not found in library" << std::endl;
+        stats.errors++;
+        return 0;
+    }
+
+    // Log output
+    std::cout << " [System] Loading track ’" << track_name << "’ to controller..." << std::endl;
+
+    // saving the int that returns from loadTrackToCache
+    int if_loaded = controller_service.loadTrackToCache(*track_to_load);
+
+    // HIT or MISS according to contract
+    if (if_loaded == 1)
+    {
+        stats.cache_hits++;
+    }
+    else if (if_loaded == 0)
+    {
+        stats.cache_misses++;
+    }
+    else
+    {
+        stats.cache_misses++;
+        stats.cache_evictions++;
+    }
+
+    return if_loaded;
 }
 
 /**
- * TODO: Implement load_track_to_mixer_deck method
- *
  * @param track_title: Title of track to load to mixer
  * @return: Whether track was successfully loaded to a deck
  */
 bool DJSession::load_track_to_mixer_deck(const std::string &track_title)
 {
     std::cout << "[System] Delegating track transfer to MixingEngineService for: " << track_title << std::endl;
-    // your implementation here
-    return false; // Placeholder
+
+    // Retrieve track from cache
+    AudioTrack *track_from_cache = controller_service.getTrackFromCache(track_title);
+
+    // Track not in cache case
+    if (!track_from_cache)
+    {
+        std::cerr << " [ERROR] Track: " << track_title << " not found in cache" << std::endl;
+        stats.errors++;
+        return false;
+    }
+
+    // Saving the int that returns from loadTrackToDeck
+    int result = mixing_service.loadTrackToDeck(*track_from_cache);
+
+    // HIT or MISS according to contract
+    if (result == 0)
+    {
+        stats.deck_loads_a++;
+        stats.transitions++;
+    }
+    else if (result == 1)
+    {
+        stats.deck_loads_b++;
+        stats.transitions++;
+    }
+    else
+    {
+        std::cerr << " [ERROR] failed to load " << track_title << " to deck" << std::endl;
+        stats.errors++;
+        return false;
+    }
+    return true;
 }
 
 /**
@@ -124,8 +165,11 @@ void DJSession::simulate_dj_performance()
     std::cout << "Cache Capacity: " << session_config.controller_cache_size << " slots (LRU policy)" << std::endl;
     std::cout << "\n--- Processing Tracks ---" << std::endl;
 
-    std::cout << "TODO: Implement the DJ performance simulation workflow here." << std::endl;
-    // Your implementation here
+    // ====================WE ARE HERE====================
+
+    if (play_all)
+    {
+    }
 }
 
 /*
