@@ -92,45 +92,45 @@ void test_phase_2_rule_of_5() {
 }
 
 void test_phase_3() {
-    // std::cout << "\n======== PHASE 3: SMART POINTER TESTING ========" << std::endl;
-    // std::cout << "Testing DJUniquePtr implementation..." << std::endl;
+    std::cout << "\n======== PHASE 3: SMART POINTER TESTING ========" << std::endl;
+    std::cout << "Testing DJUniquePtr implementation..." << std::endl;
 
-    // try {
-    //     // Test basic construction
-    //     std::cout << "Testing DJUniquePtr construction..." << std::endl;
-    //     PointerWrapper<MP3Track> smart_track(new MP3Track("Smart Track", {"AI Artist"}, 240, 130, 320));
+    try {
+        // Test basic construction
+        std::cout << "Testing DJUniquePtr construction..." << std::endl;
+        PointerWrapper<MP3Track> smart_track(new MP3Track("Smart Track", {"AI Artist"}, 240, 130, 320));
 
-    //     // Test access operators (will be TODO messages initially)
-    //     std::cout << "\nTesting access operators..." << std::endl;
-    //     if (smart_track) {
-    //         std::cout << "Smart pointer contains: " << smart_track->get_title() << std::endl;
-    //         std::cout << "BPM: " << (*smart_track).get_bpm() << std::endl;
-    //     }
+        // Test access operators (will be TODO messages initially)
+        std::cout << "\nTesting access operators..." << std::endl;
+        if (smart_track) {
+            std::cout << "Smart pointer contains: " << smart_track->get_title() << std::endl;
+            std::cout << "BPM: " << (*smart_track).get_bpm() << std::endl;
+        }
 
-    //     // Test move operations
-    //     std::cout << "\nTesting move operations..." << std::endl;
-    //     PointerWrapper<MP3Track> moved_track = std::move(smart_track);
-    //     std::cout << "Original pointer after move: " << (smart_track ? "still valid" : "null") << std::endl;
-    //     std::cout << "Moved pointer: " << (moved_track ? "valid" : "null") << std::endl;
+        // Test move operations
+        std::cout << "\nTesting move operations..." << std::endl;
+        PointerWrapper<MP3Track> moved_track = std::move(smart_track);
+        std::cout << "Original pointer after move: " << (smart_track ? "still valid" : "null") << std::endl;
+        std::cout << "Moved pointer: " << (moved_track ? "valid" : "null") << std::endl;
 
-    //     // Test reset
-    //     std::cout << "\nTesting reset..." << std::endl;
-    //     moved_track.reset(new MP3Track("Reset Track", {"Reset Artist"}, 180, 125, 256));
+        // Test reset
+        std::cout << "\nTesting reset..." << std::endl;
+        moved_track.reset(new MP3Track("Reset Track", {"Reset Artist"}, 180, 125, 256));
 
-    //     // Test release
-    //     std::cout << "\nTesting release..." << std::endl;
-    //     MP3Track* raw_ptr = moved_track.release();
-    //     std::cout << "Released pointer: " << (raw_ptr ? raw_ptr->get_title() : "null") << std::endl;
+        // Test release
+        std::cout << "\nTesting release..." << std::endl;
+        MP3Track* raw_ptr = moved_track.release();
+        std::cout << "Released pointer: " << (raw_ptr ? raw_ptr->get_title() : "null") << std::endl;
 
-    //     // Manual cleanup since we released
-    //     delete raw_ptr;
+        // Manual cleanup since we released
+        delete raw_ptr;
 
-    //     std::cout << "Phase 3 test complete!\n" << std::endl;
+        std::cout << "Phase 3 test complete!\n" << std::endl;
 
-    // } catch (const std::exception& e) {
-    //     std::cout << "❌ Exception caught: " << e.what() << std::endl;
-    //     std::cout << "This indicates DJUniquePtr implementation issues!\n" << std::endl;
-    // }
+    } catch (const std::exception& e) {
+        std::cout << "❌ Exception caught: " << e.what() << std::endl;
+        std::cout << "This indicates DJUniquePtr implementation issues!\n" << std::endl;
+    }
 }
 
 void demonstrate_polymorphism() {
