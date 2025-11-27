@@ -172,7 +172,10 @@ void DJSession::simulate_dj_performance() {
             std::cout << "\n-- Processing: " << track_title <<" --" << std::endl;
             stats.tracks_processed++;
             load_track_to_controller(track_title);
-            if(!load_track_to_mixer_deck(track_title)) { continue; }
+            controller_service.displayCacheStatus();    //print cache status
+            bool load_to_deck_result = load_track_to_mixer_deck(track_title);
+            mixing_service.displayDeckStatus();         //print deck status
+            if(!load_to_deck_result) { continue; }
             //cache, deck and transition statistics are updated in these functions
         }
         print_session_summary();
@@ -195,7 +198,7 @@ void DJSession::simulate_dj_performance() {
  * @return: true if configuration loaded successfully; false on error
  */
 bool DJSession::load_configuration() {
-    const std::string config_path = "bin/dj_config.txt";
+    const std::string config_path = "input_2/dj_config.txt";
     
     std::cout << "Loading configuration from: " << config_path << std::endl;
     
