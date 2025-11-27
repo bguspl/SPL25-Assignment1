@@ -12,16 +12,6 @@ Playlist::~Playlist() {
     #ifdef DEBUG
     std::cout << "Destroying playlist: " << playlist_name << std::endl;
     #endif
-    //delete all nodes and tracks:
-    PlaylistNode* current = head;
-    while (current) {
-        PlaylistNode* next = current->next;
-        delete current->track;
-        delete current;
-        current = next;
-    }
-    head = nullptr;
-    track_count = 0;
 }
 
 void Playlist::add_track(AudioTrack* track) {
@@ -59,9 +49,7 @@ void Playlist::remove_track(const std::string& title) {
         } else {
             head = current->next;
         }
-        //delete the node and track
-        delete current->track;
-        delete current;
+
         track_count--;
         std::cout << "Removed '" << title << "' from playlist" << std::endl;
 
@@ -103,7 +91,7 @@ void Playlist::display() const {
     std::cout << "========================\n" << std::endl;
 }
 
-AudioTrack* Playlist::find_track(const std::string& title) const {      //Why return pointer?!
+AudioTrack* Playlist::find_track(const std::string& title) const {
     PlaylistNode* current = head;
 
     while (current) {
@@ -128,7 +116,7 @@ int Playlist::get_total_duration() const {
     return total;
 }
 
-std::vector<AudioTrack*> Playlist::getTracks() const {      //Why return pointers?!
+std::vector<AudioTrack*> Playlist::getTracks() const {
     std::vector<AudioTrack*> tracks;
     PlaylistNode* current = head;
     while (current) {
