@@ -14,9 +14,28 @@ DJLibraryService::DJLibraryService(const Playlist &playlist)
  */
 void DJLibraryService::buildLibrary(const std::vector<SessionConfig::TrackInfo> &library_tracks)
 {
-    // Todo: Implement buildLibrary method
-    std::cout << "TODO: Implement DJLibraryService::buildLibrary method\n"
-              << library_tracks.size() << " tracks to be loaded into library.\n";
+    for (const SessionConfig::TrackInfo track : library_tracks)
+    {
+
+        // If the track is an instance of mp3 :
+        if (track.type == "MP3")
+        {
+            AudioTrack *new_track_mp3 = new MP3Track(track.title, track.artists, track.duration_seconds, track.bpm, track.extra_param1, track.extra_param2); // Allocate a new mp3 track on heap
+            library.push_back(new_track_mp3);                                                                                                                // Push to library
+            std::cout << "MP3Track created: " << track.extra_param1 << "kbps" << std::endl;                                                                  // Log print
+        }
+
+        // If the track is an instance of WAV :
+        else if (track.type == "WAV")
+        {
+            AudioTrack *new_track_wav = new WAVTrack(track.title, track.artists, track.duration_seconds, track.bpm, track.extra_param1, track.extra_param2); // Allocate a new mp3 track on heap
+            library.push_back(new_track_wav);                                                                                                                // Push to library
+            std::cout << "WAVTrack created: " << track.extra_param1 << "Hz/" << track.extra_param2 << std::endl;                                             // Log print
+        }
+    }
+
+    // Log summary
+    std::cout << " [INFO] Track library built: " << library.size() << " tracks loaded" << std::endl;
 }
 
 /**

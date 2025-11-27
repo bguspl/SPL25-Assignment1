@@ -11,7 +11,6 @@
     "github.copilot.advanced": {
         "inlineSuggestEnable": false
     },
-    
     // Disable inline suggestions and completions from AI
     "editor.inlineSuggest.enabled": false,
     "editor.quickSuggestions": {
@@ -19,47 +18,94 @@
         "comments": false,
         "strings": false
     },
-    
     // Disable snippets that might use AI
     "editor.snippetSuggestions": "none",
     "editor.suggest.snippetsPreventQuickSuggestions": false,
-    
     // Disable IntelliCode AI-assisted completions
     "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
     "editor.suggestSelection": "first",
-    
     // Disable workspace trust to prevent extensions from running
     "extensions.ignoreRecommendations": true,
-    
     // C++ specific settings
     "C_Cpp.intelliSenseEngine": "default",
     "C_Cpp.autocomplete": "disabled",
     "C_Cpp.errorSquiggles": "enabled",
-    
     // File associations
     "files.associations": {
         "*.h": "cpp",
         "*.cpp": "cpp",
         "*.txt": "plaintext",
-        "iostream": "cpp"
+        "iostream": "cpp",
+        "array": "cpp",
+        "atomic": "cpp",
+        "bit": "cpp",
+        "cctype": "cpp",
+        "charconv": "cpp",
+        "chrono": "cpp",
+        "clocale": "cpp",
+        "cmath": "cpp",
+        "codecvt": "cpp",
+        "compare": "cpp",
+        "concepts": "cpp",
+        "cstdarg": "cpp",
+        "cstddef": "cpp",
+        "cstdint": "cpp",
+        "cstdio": "cpp",
+        "cstdlib": "cpp",
+        "cstring": "cpp",
+        "ctime": "cpp",
+        "cwchar": "cpp",
+        "cwctype": "cpp",
+        "deque": "cpp",
+        "map": "cpp",
+        "string": "cpp",
+        "unordered_map": "cpp",
+        "vector": "cpp",
+        "exception": "cpp",
+        "algorithm": "cpp",
+        "functional": "cpp",
+        "iterator": "cpp",
+        "memory": "cpp",
+        "memory_resource": "cpp",
+        "numeric": "cpp",
+        "optional": "cpp",
+        "random": "cpp",
+        "ratio": "cpp",
+        "string_view": "cpp",
+        "system_error": "cpp",
+        "tuple": "cpp",
+        "type_traits": "cpp",
+        "utility": "cpp",
+        "fstream": "cpp",
+        "initializer_list": "cpp",
+        "iomanip": "cpp",
+        "iosfwd": "cpp",
+        "istream": "cpp",
+        "limits": "cpp",
+        "new": "cpp",
+        "numbers": "cpp",
+        "ostream": "cpp",
+        "span": "cpp",
+        "sstream": "cpp",
+        "stdexcept": "cpp",
+        "streambuf": "cpp",
+        "typeinfo": "cpp",
+        "variant": "cpp",
+        "format": "cpp"
     },
-    
     // Editor settings for academic integrity
     "editor.acceptSuggestionOnCommitCharacter": false,
     "editor.acceptSuggestionOnEnter": "off",
     "editor.tabCompletion": "off",
     "editor.wordBasedSuggestions": "off",
     "editor.suggest.showWords": false,
-    
     // Disable telemetry and online features
     "telemetry.telemetryLevel": "off",
     "workbench.enableExperiments": false,
-    
     // Build and debug settings
     "files.eol": "\n",
     "editor.insertSpaces": true,
     "editor.tabSize": 4,
-    
     // Terminal settings
     "terminal.integrated.defaultProfile.linux": "fish"
 }
