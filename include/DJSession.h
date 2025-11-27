@@ -41,7 +41,7 @@ private:
     ConfigurationManager config_manager;
     SessionConfig session_config;
     std::vector<std::string> track_titles;
-    bool play_all = false;
+    bool play_all;
     // Session statistics
     struct SessionStats
     {

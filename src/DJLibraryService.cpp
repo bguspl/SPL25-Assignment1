@@ -6,8 +6,9 @@
 #include <memory>
 #include <filesystem>
 
-DJLibraryService::DJLibraryService(const Playlist &playlist)
-    : playlist(playlist) {}
+
+DJLibraryService::DJLibraryService(const Playlist& playlist) 
+    : playlist(playlist), library() {}
 /**
  * @brief Load a playlist from track indices referencing the library
  * @param library_tracks Vector of track info from config

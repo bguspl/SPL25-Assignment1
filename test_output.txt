@@ -36,7 +36,6 @@ Track count: 1
 
 Cleaning up...
 Destroying playlist: Chill House Mix
-AudioTrack destructor called for: Sunset Lover
 Phase 1 test complete. Check for memory leaks!
 
 
@@ -58,7 +57,7 @@ AudioTrack copy assignment called for: Original Track
 Assigned: Original Track
 
 Testing move constructor...
-AudioTrack move constructor called for: Original Track
+AudioTrack move constructor called for: 
 Moved: Original Track
 Phase 2 test complete!
 
@@ -79,7 +78,7 @@ Smart pointer contains: Smart Track
 BPM: 130
 
 Testing move operations...
-Move constructor called for: 0x7ffdc6562cb8
+Move constructor called for: 0x7ffd088eda98
 Original pointer after move: null
 Moved pointer: valid
 
@@ -87,7 +86,7 @@ Testing reset...
 AudioTrack created: Reset Track by 
 Reset Artist 
 MP3Track created: 256 kbps
-Reset called for pointer: 0x55fef503a350
+Reset called for pointer: 0x555736abb3c0
 AudioTrack destructor called for: Smart Track
 
 Testing release...
@@ -124,8 +123,8 @@ Track: WAV Example
   → Fast loading due to uncompressed format.
 [WAVTrack::analyze_beatgrid] Analyzing beat grid for: "WAV Example"
   → Estimated beats: 390  → Precision factor: 1 (uncompressed audio)
-Quality: [WAVTrack::get_quality_score] "WAV Example" score = 100/100
-100
+Quality: [WAVTrack::get_quality_score] "WAV Example" score = 90/100
+90
 AudioTrack copy constructor called for: WAV Example
 Cloned: WAV Example
 
