@@ -16,7 +16,7 @@ AudioTrack* LRUCache::get(const std::string& track_id) {
 
 bool LRUCache::put(PointerWrapper<AudioTrack> track) {
     if(!track) {
-        return false
+        return false;
     }
 
     for (size_t i = 0; i < max_size; ++i) {
@@ -32,8 +32,14 @@ bool LRUCache::put(PointerWrapper<AudioTrack> track) {
         is_evicted = true;
     }
 
-    int empty_slot = findEmptySlot();
+    size_t empty_slot = findEmptySlot();
+    
     PointerWrapper<AudioTrack> cloned_track((track->clone()));
+    if(!cloned_track) {
+        std::cout << "[ERROR] Track: \"" << track->get_title() << "\" failed to clone" << std::endl;
+        return false;  // Return false (no eviction) without corrupting cache state
+    }
+
     slots[empty_slot].store(std::move(cloned_track), access_counter);
 
     access_counter++;
