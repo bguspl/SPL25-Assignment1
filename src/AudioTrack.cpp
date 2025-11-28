@@ -97,6 +97,9 @@ AudioTrack& AudioTrack::operator=(AudioTrack&& other) noexcept {
     other.waveform_data = nullptr;
     return *this;
 }
+void AudioTrack::set_bpm(int new_bpm) {
+    bpm = new_bpm;
+}
 
 void AudioTrack::get_waveform_copy(double* buffer, size_t buffer_size) const {
     if (buffer && waveform_data && buffer_size <= waveform_size) {
