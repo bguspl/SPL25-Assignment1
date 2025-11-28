@@ -173,9 +173,9 @@ void DJSession::simulate_dj_performance()
         std::vector<std::string> playlist_names;
 
         // Pushing playlist names to the vector and sorting
-        for (const auto &[name, idx] : session_config.playlists)
+        for (const auto &pair : session_config.playlists)
         {
-            playlist_names.push_back(name);
+            playlist_names.push_back(pair.first);
         }
         std::sort(playlist_names.begin(), playlist_names.end());
 
@@ -191,7 +191,7 @@ void DJSession::simulate_dj_performance()
                 continue;
             }
 
-            // Iterate through each track in the playlist 
+            // Iterate through each track in the playlist
             for (std::string track : track_titles)
             {
                 std::cout << "\n-- Processing: " << track << " --" << std::endl;
@@ -230,7 +230,7 @@ void DJSession::simulate_dj_performance()
                 continue;
             }
 
-            // Iterate through each track in the playlist 
+            // Iterate through each track in the playlist
             for (std::string track : track_titles)
             {
                 std::cout << "\n-- Processing: " << track << " --" << std::endl;

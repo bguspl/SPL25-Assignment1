@@ -30,7 +30,7 @@ Playlist::~Playlist()
 
 // Copy Constructor
 Playlist::Playlist(const Playlist &other)
-    : playlist_name(other.playlist_name), track_count(other.track_count)
+    : head(nullptr), playlist_name(other.playlist_name), track_count(other.track_count)
 {
 
     if (other.head == nullptr)

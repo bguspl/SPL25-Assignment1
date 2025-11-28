@@ -25,7 +25,7 @@ DJLibraryService::~DJLibraryService()
 
 // Copy constructor
 DJLibraryService::DJLibraryService(const DJLibraryService &other)
-    : playlist(other.playlist)
+    : playlist(other.playlist), library()
 {
     // Deep copy of each track
     for (AudioTrack *track : other.library)
@@ -82,7 +82,7 @@ DJLibraryService &DJLibraryService::operator=(const DJLibraryService &other)
  */
 void DJLibraryService::buildLibrary(const std::vector<SessionConfig::TrackInfo> &library_tracks)
 {
-    for (const SessionConfig::TrackInfo track : library_tracks)
+    for (const SessionConfig::TrackInfo &track : library_tracks)
     {
 
         // If the track is an instance of mp3 :
