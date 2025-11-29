@@ -90,7 +90,6 @@ void DJLibraryService::buildLibrary(const std::vector<SessionConfig::TrackInfo> 
         {
             AudioTrack *new_track_mp3 = new MP3Track(track.title, track.artists, track.duration_seconds, track.bpm, track.extra_param1, track.extra_param2); // Allocate a new mp3 track on heap
             library.push_back(new_track_mp3);                                                                                                                // Push to library
-            std::cout << "MP3Track created: " << track.extra_param1 << "kbps" << std::endl;                                                                  // Log print
         }
 
         // If the track is an instance of WAV :
@@ -98,7 +97,6 @@ void DJLibraryService::buildLibrary(const std::vector<SessionConfig::TrackInfo> 
         {
             AudioTrack *new_track_wav = new WAVTrack(track.title, track.artists, track.duration_seconds, track.bpm, track.extra_param1, track.extra_param2); // Allocate a new mp3 track on heap
             library.push_back(new_track_wav);                                                                                                                // Push to library
-            std::cout << "WAVTrack created: " << track.extra_param1 << "Hz/" << track.extra_param2 << std::endl;                                             // Log print
         }
     }
 
@@ -184,8 +182,6 @@ void DJLibraryService::loadPlaylistFromIndices(const std::string &playlist_name,
 
         // Add to playlist (playlist now owns the track)
         playlist.add_track(raw_pointer);
-
-        std::cout << "Added '" << source_track->get_title() << "' to playlist '" << playlist_name << "'" << std::endl;
     }
 
     std::cout << "[INFO] Playlist loaded: " << playlist_name << " (" << playlist.get_track_count() << " tracks)" << std::endl;

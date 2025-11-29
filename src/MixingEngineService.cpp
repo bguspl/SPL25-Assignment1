@@ -139,12 +139,12 @@ int MixingEngineService::loadTrackToDeck(const AudioTrack &track)
     // Release pointer from pointer wrapper and assign to target deck
     AudioTrack *raw_ptr = track_clone.release();
     decks[target_deck] = raw_ptr;
-    std::cout << "[Load Complete] " << raw_ptr->get_title() << "is now loaded on deck " << target_deck << std::endl;
+    std::cout << "[Load Complete] '" << raw_ptr->get_title() << "' is now loaded on deck " << target_deck << std::endl;
 
     // Unload the previously active deck
     if (decks[active_deck])
     {
-        std::cout << "  [Unload] Unloading previous deck " << active_deck << decks[active_deck]->get_title() << std::endl;
+        std::cout << "  [Unload] Unloading previous deck " << active_deck << " (" << decks[active_deck]->get_title() << ")" << std::endl;
         delete decks[active_deck];
         decks[active_deck] = nullptr;
     }
@@ -221,6 +221,6 @@ void MixingEngineService::sync_bpm(const PointerWrapper<AudioTrack> &track) cons
         int average_bpm = (new_track_bpm + decks[active_deck]->get_bpm()) / 2;
         track->set_bpm(average_bpm);
 
-        std::cout << "[Sync BPM] Syncing BPM from " << new_track_bpm << "to " << track->get_bpm() << std::endl;
+        std::cout << "[Sync BPM] Syncing BPM from " << new_track_bpm << " to " << track->get_bpm() << std::endl;
     }
 }
