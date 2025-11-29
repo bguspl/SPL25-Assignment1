@@ -50,7 +50,6 @@ bool DJSession::load_playlist(const std::string& playlist_name)  {
 }
 
 /**
- * TODO: Implement load_track_to_controller method
  * 
  * REQUIREMENTS:
  * 1. Track Retrieval
@@ -72,20 +71,58 @@ bool DJSession::load_playlist(const std::string& playlist_name)  {
 
  */
 int DJSession::load_track_to_controller(const std::string& track_name) {
-    // Your implementation here
-    return 0; // Placeholder
+    AudioTrack* found_track = library_service.findTrack(track_name);
+    if(!found_track){
+        std::cout << "[ERROR] Track: " << track_name << " not found in library" << std::endl;
+        stats.errors++;
+        return 0;
+    }
+    std::cout << "[System] Loading track '" << track_name << "' to controller..." << std::endl;
+    int result = controller_service.loadTrackToCache(*found_track);
+    if(result == 1){
+        stats.cache_hits++;
+    }
+     if(result == 0){
+        stats.cache_misses++;
+    }
+     if(result == -1){
+        stats.cache_evictions++;
+    }
+    if(result == -2){
+        return 0;
+    }
+    return result;
+
 }
 
 /**
- * TODO: Implement load_track_to_mixer_deck method
  * 
  * @param track_title: Title of track to load to mixer
  * @return: Whether track was successfully loaded to a deck
  */
 bool DJSession::load_track_to_mixer_deck(const std::string& track_title) {
     std::cout << "[System] Delegating track transfer to MixingEngineService for: " << track_title << std::endl;
-    // your implementation here
-    return false; // Placeholder
+    AudioTrack* track_from_cache = controller_service.getTrackFromCache(track_title);
+    if(!track_from_cache){
+        std::cout << "[ERROR] Track: " << track_title << " not found in cache" << std::endl;
+        stats.errors++;
+        return false;
+    }
+    int result =mixing_service.loadTrackToDeck(*track_from_cache);
+    if(result == 0){
+        stats.deck_loads_a++;
+        stats.transitions++;
+    }
+    else if(result == 1){
+        stats.deck_loads_b++;
+        stats.transitions++;
+    }
+    else if(result == -1){
+        stats.errors++;
+        std::cout << "[ERROR] Failed to load track: " << track_title << " to deck" << std::endl;
+        return false;
+    }
+    return true;
 }
 
 /**
@@ -118,6 +155,11 @@ void DJSession::simulate_dj_performance() {
 
     std::cout << "TODO: Implement the DJ performance simulation workflow here." << std::endl;
     // Your implementation here
+    if(play_all){
+        for(auto& playlist : session_config.playlists){
+            std::string playlist_name = playlist.first;
+            std::vector<int> track_indices = playlist.second;
+    }
 }
 
 
