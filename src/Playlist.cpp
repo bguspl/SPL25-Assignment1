@@ -19,16 +19,16 @@ void Playlist::add_track(AudioTrack* track) {
         std::cout << "[Error] Cannot add null track to playlist" << std::endl;
         return;
     }
-
+    PointerWrapper<AudioTrack> newTrack = track->clone();
     // Create new node - this allocates memory!
-    PlaylistNode* new_node = new PlaylistNode(track);
+    PlaylistNode* new_node = new PlaylistNode(newTrack.get());
 
     // Add to front of list
     new_node->next = head;
     head = new_node;
     track_count++;
 
-    std::cout << "Added '" << track->get_title() << "' to playlist '" 
+    std::cout << "Added '" << new_node->track->get_title() << "' to playlist '" 
               << playlist_name << "'" << std::endl;
 }
 
@@ -44,11 +44,14 @@ void Playlist::remove_track(const std::string& title) {
 
     if (current) {
         // Remove from linked list
+        delete current->track;
         if (prev) {
             prev->next = current->next;
         } else {
             head = current->next;
         }
+        delete current;
+        current = nullptr;
 
         track_count--;
         std::cout << "Removed '" << title << "' from playlist" << std::endl;
