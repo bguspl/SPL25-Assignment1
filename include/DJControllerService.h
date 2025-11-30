@@ -12,7 +12,8 @@
  * On HIT: touch MRU (most recently used); on MISS: insert; if full, evict LRU.
  * - Mixer always receives a polymorphic clone; cache retains its copy.
  */
-class DJControllerService {
+class DJControllerService
+{
 public:
     // Construct with a given cache size
     explicit DJControllerService(size_t cache_size = 8);
@@ -20,8 +21,7 @@ public:
     // Contract: Ensure a track is present in cache by key (full playlist line)
     // Input: A reference to an AudioTrack.
     // Output: An integer indicating the result: 1 for HIT, 0 for MISS without eviction, -1 for MISS with eviction.
-    int loadTrackToCache(AudioTrack& track);
-
+    int loadTrackToCache(AudioTrack &track);
 
     // Contract: Display cache status (LRU order and occupancy)
     // - Intended for debugging and interactive inspection
@@ -38,7 +38,7 @@ public:
      * @param track_title The title of the track to retrieve.
      * @return A raw pointer to the track if found, otherwise nullptr. Does not transfer ownership.
      */
-    AudioTrack* getTrackFromCache(const std::string& track_title);
+    AudioTrack *getTrackFromCache(const std::string &track_title);
 
 private:
     LRUCache cache;
