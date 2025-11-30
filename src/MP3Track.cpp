@@ -39,7 +39,7 @@ void MP3Track::analyze_beatgrid()
     std::cout << "[MP3Track::analyze_beatgrid] Analyzing beat grid for: \"" << title << "\"\n";
     int beats = (duration_seconds / 60.0) * bpm;
     double precision_factor = bitrate / 320.0;
-    std::cout << " → Estimated beats: " << beats << "  → Compression precision factor: " << precision_factor << std::endl;
+    std::cout << "    → Estimated beats: " << beats << "  → Compression precision factor: " << precision_factor << std::endl;
 }
 
 double MP3Track::get_quality_score() const
@@ -72,5 +72,5 @@ double MP3Track::get_quality_score() const
 
 PointerWrapper<AudioTrack> MP3Track::clone() const
 {
-    return PointerWrapper<AudioTrack>(new MP3Track(title, artists, duration_seconds, bpm, bitrate, has_id3_tags));
+    return PointerWrapper<AudioTrack>(new MP3Track(*this));
 }

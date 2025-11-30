@@ -17,9 +17,7 @@ public:
     DJLibraryService(const Playlist &playlist);
     DJLibraryService() : playlist(), library() {}
 
-    /**
-     * Rule of 3 Implementation
-     */
+    // Rule of 5 Implementation
 
     // Destructor
     ~DJLibraryService();
@@ -29,6 +27,12 @@ public:
 
     // Copy assignment
     DJLibraryService &operator=(const DJLibraryService &other);
+
+    // Move Constructor
+    DJLibraryService(DJLibraryService &&other) noexcept;
+
+    // Move Assignment Operator
+    DJLibraryService &operator=(DJLibraryService &&other) noexcept;
 
     /**
      * @brief Build the track library from parsed config data

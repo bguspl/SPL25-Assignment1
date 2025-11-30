@@ -21,10 +21,19 @@ public:
     MixingEngineService();
     ~MixingEngineService();
 
-    // Implementation of the Rule of 3
+    // Implementation of the Rule of 5
+
+    // Copy Constructor
     MixingEngineService(const MixingEngineService &other);
+
+    // Copy Assignement Operator]
     MixingEngineService &operator=(const MixingEngineService &other);
-    
+
+    // Move Constructor
+    MixingEngineService(MixingEngineService &&other) noexcept;
+
+    // Move Assignment Operator
+    MixingEngineService &operator=(MixingEngineService &&other) noexcept;
 
     /** Contract: Load a track to the next deck per instant-transition policy
      * - @param track: reference to a cached track to be cloned for the mixer

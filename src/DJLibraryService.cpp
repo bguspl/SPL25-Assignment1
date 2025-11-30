@@ -76,6 +76,37 @@ DJLibraryService &DJLibraryService::operator=(const DJLibraryService &other)
     return *this;
 }
 
+// Move Constructor
+DJLibraryService::DJLibraryService(DJLibraryService &&other) noexcept
+    : playlist(std::move(other.playlist)), library(std::move(other.library))
+{
+    // We used std::move for both members
+}
+
+// Move Assignment Operator
+DJLibraryService &DJLibraryService::operator=(DJLibraryService &&other) noexcept
+{
+    // Checking for equality
+    if (this == &other)
+    {
+        return *this;
+    }
+
+    // Clean up current resources
+    for (AudioTrack *track : library)
+    {
+        delete track;
+    }
+
+    // Using std::move to move libarary
+    library = std::move(other.library);
+
+    // Using std::move to move playlist
+    playlist = std::move(other.playlist);
+
+    return *this;
+}
+
 /**
  * @brief Load a playlist from track indices referencing the library
  * @param library_tracks Vector of track info from config
@@ -101,7 +132,7 @@ void DJLibraryService::buildLibrary(const std::vector<SessionConfig::TrackInfo> 
     }
 
     // Log summary
-    std::cout << " [INFO] Track library built: " << library.size() << " tracks loaded" << std::endl;
+    std::cout << "[INFO] Track library built: " << library.size() << " tracks loaded" << std::endl;
 }
 
 /**

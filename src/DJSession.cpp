@@ -69,7 +69,7 @@ int DJSession::load_track_to_controller(const std::string &track_name)
     }
 
     // Log output
-    std::cout << " [System] Loading track ’" << track_name << "’ to controller..." << std::endl;
+    std::cout << "[System] Loading track '" << track_name << "' to controller..." << std::endl;
 
     // saving the int that returns from loadTrackToCache
     int if_loaded = controller_service.loadTrackToCache(*track_to_load);
@@ -88,6 +88,8 @@ int DJSession::load_track_to_controller(const std::string &track_name)
         stats.cache_misses++;
         stats.cache_evictions++;
     }
+
+    controller_service.displayCacheStatus();
 
     return if_loaded;
 }
@@ -131,6 +133,9 @@ bool DJSession::load_track_to_mixer_deck(const std::string &track_title)
         stats.errors++;
         return false;
     }
+
+    mixing_service.displayDeckStatus();
+
     return true;
 }
 
@@ -194,7 +199,7 @@ void DJSession::simulate_dj_performance()
             // Iterate through each track in the playlist
             for (std::string track : track_titles)
             {
-                std::cout << "\n-- Processing: " << track << " --" << std::endl;
+                std::cout << "\n--- Processing: " << track << " ---" << std::endl;
                 stats.tracks_processed++;
                 // Load track to controller
                 load_track_to_controller(track);
@@ -233,7 +238,7 @@ void DJSession::simulate_dj_performance()
             // Iterate through each track in the playlist
             for (std::string track : track_titles)
             {
-                std::cout << "\n-- Processing: " << track << " --" << std::endl;
+                std::cout << "\n--- Processing: " << track << " ---" << std::endl;
                 stats.tracks_processed++;
                 // Load track to controller
                 load_track_to_controller(track);

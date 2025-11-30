@@ -7,10 +7,11 @@ MixingEngineService::MixingEngineService()
 {
     decks[0] = nullptr;
     decks[1] = nullptr;
-    std::cout << "[MixingEngineService] Initialized with 2 empty decks" << std::endl;
+    std::cout << "[MixingEngineService] Initialized with 2 empty decks." << std::endl;
 }
 
-// Implementing rule of 3
+// Implementing rule of 5
+
 MixingEngineService::~MixingEngineService()
 {
     std::cout << "[MixingEngineService] Cleaning up decks..." << std::endl;
@@ -80,6 +81,53 @@ MixingEngineService &MixingEngineService::operator=(const MixingEngineService &o
     return *this;
 }
 
+// Move Constructor
+MixingEngineService::MixingEngineService(MixingEngineService &&other) noexcept
+    : active_deck(other.active_deck), auto_sync(other.auto_sync),
+      bpm_tolerance(other.bpm_tolerance)
+{
+    // Stealing recources
+    decks[0] = other.decks[0];
+    decks[1] = other.decks[1];
+
+    // Making sure we delete other
+    other.decks[0] = nullptr;
+    other.decks[1] = nullptr;
+}
+
+// Move Assignment Operator
+MixingEngineService &MixingEngineService::operator=(MixingEngineService &&other) noexcept
+{
+    // Checking for equality
+    if (this == &other)
+    {
+        return *this;
+    }
+
+    // Clean up current resources
+    for (int i = 0; i < 2; i++)
+    {
+        if (decks[i])
+        {
+            delete decks[i];
+            decks[i] = nullptr;
+        }
+    }
+
+    // Steal resources from other
+    decks[0] = other.decks[0];
+    decks[1] = other.decks[1];
+    active_deck = other.active_deck;
+    auto_sync = other.auto_sync;
+    bpm_tolerance = other.bpm_tolerance;
+
+    // Making sure we delete other
+    other.decks[0] = nullptr;
+    other.decks[1] = nullptr;
+
+    return *this;
+}
+
 /**
  * @param track: Reference to the track to be loaded
  * @return: Index of the deck where track was loaded, or -1 on failure
@@ -144,7 +192,7 @@ int MixingEngineService::loadTrackToDeck(const AudioTrack &track)
     // Unload the previously active deck
     if (decks[active_deck])
     {
-        std::cout << "  [Unload] Unloading previous deck " << active_deck << " (" << decks[active_deck]->get_title() << ")" << std::endl;
+        std::cout << "[Unload] Unloading previous deck " << active_deck << " (" << decks[active_deck]->get_title() << ")" << std::endl;
         delete decks[active_deck];
         decks[active_deck] = nullptr;
     }
@@ -152,7 +200,7 @@ int MixingEngineService::loadTrackToDeck(const AudioTrack &track)
     // Switch the active deck
     active_deck = target_deck;
 
-    std::cout << " [Active Deck] Switched to deck " << target_deck << std::endl;
+    std::cout << "[Active Deck] Switched to deck " << target_deck << std::endl;
 
     return target_deck;
 }
