@@ -178,7 +178,7 @@ int MixingEngineService::loadTrackToDeck(const AudioTrack &track)
     // BPM Management
     if (auto_sync && decks[active_deck])
     {
-        if (!can_mix_tracks(track_clone))
+        if (can_mix_tracks(track_clone))
         {
             sync_bpm(track_clone);
         }

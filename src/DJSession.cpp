@@ -211,7 +211,7 @@ void DJSession::simulate_dj_performance()
             print_session_summary();
 
             // Reset statistics
-            stats = SessionStats();
+            // stats = SessionStats();
         }
     }
 
@@ -250,7 +250,7 @@ void DJSession::simulate_dj_performance()
             print_session_summary();
 
             // Reset statistics
-            stats = SessionStats();
+            // stats = SessionStats();
         }
     }
     // Log after loop completion
