@@ -63,6 +63,9 @@ public:
      * What should happen to the source wrapper after the move?
      */
     PointerWrapper(PointerWrapper&& other) noexcept:ptr(other.ptr) {
+        #ifdef DEBUG
+        std::cout << "Move constructor called for: " << static_cast<void*>(other.ptr) << std::endl;
+        #endif
         other.ptr = nullptr;
     }
     /**
@@ -141,6 +144,9 @@ public:
         if(new_ptr == ptr) {
             return;
         }
+        #ifdef DEBUG
+        std::cout << "Reset called for pointer: " << static_cast<void*>(ptr) << std::endl;
+        #endif
         if(ptr != nullptr) {
             delete ptr;
         }

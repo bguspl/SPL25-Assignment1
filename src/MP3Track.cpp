@@ -16,19 +16,19 @@ void MP3Track::load() {
     std::cout << "[MP3Track::load] Loading MP3: \"" << title
               << "\" at " << bitrate << " kbps...\n";
     if(has_id3_tags) {
-        std::cout << "  -> Processing ID3 metadata (artist info, album art, etc.)..." << std::endl;
+        std::cout << "  → Processing ID3 metadata (artist info, album art, etc.)..." << std::endl;
     } else {
-        std::cout << "  -> No ID3 tags found" << std::endl;
+        std::cout << "  → No ID3 tags found" << std::endl;
     }
-    std::cout << "  -> Decoding MP3 frames..." << std::endl;
-    std::cout << "  -> Load complete." << std::endl;
+    std::cout << "  → Decoding MP3 frames..." << std::endl;
+    std::cout << "  → Load complete." << std::endl;
 }
 
 void MP3Track::analyze_beatgrid() {
      std::cout << "[MP3Track::analyze_beatgrid] Analyzing beat grid for: \"" << title << "\"\n";
-    double beats_estimated = (duration_seconds / 60.0) * bpm;
+    int beats_int = static_cast<int>((duration_seconds / 60.0) * bpm);
     double precision_factor = bitrate / 320.0;
-    std::cout << "  -> Estimated beats: " << beats_estimated << "  -> Compression precision factor: " << precision_factor << std::endl;
+    std::cout << "  → Estimated beats: " << beats_int << "  → Compression precision factor: " << static_cast<int>(precision_factor) << std::endl;
 }
 
 double MP3Track::get_quality_score() const {
@@ -45,6 +45,8 @@ double MP3Track::get_quality_score() const {
     if(base_score > 100) {
         base_score = 100;
     }
+    int score_int = static_cast<int>(base_score);
+    std::cout << "[MP3Track::get_quality_score] \"" << title << "\" score = " << score_int << "/100" << std::endl;
     return base_score;
 }
 
