@@ -7,9 +7,12 @@
  * TODO: Implement MixingEngineService constructor
  */
 MixingEngineService::MixingEngineService()
-    : active_deck(0)
+    : decks(), active_deck(1), auto_sync(false), bpm_tolerance(0) 
 {
     // Your implementation here
+    decks[0] = nullptr;
+    decks[1] = nullptr;
+    std::cout <<"[MixingEngineService] Initialized with 2 empty decks."<< std::endl;
 }
 
 /**
@@ -17,6 +20,11 @@ MixingEngineService::MixingEngineService()
  */
 MixingEngineService::~MixingEngineService() {
     // Your implementation here
+    std::cout<<"[MixingEngineService] Cleaning up decks.... " << std::endl;
+    delete decks[0];
+    decks[0] = nullptr;
+    delete decks[1];
+    decks[1] = nullptr;
 }
 
 
@@ -27,7 +35,59 @@ MixingEngineService::~MixingEngineService() {
  */
 int MixingEngineService::loadTrackToDeck(const AudioTrack& track) {
     // Your implementation here
-    return -1; // Placeholder
+    std::cout <<"=== Loading Track to Deck ==="<< std::endl;
+    PointerWrapper<AudioTrack> toLoad = track.clone();
+    if(!toLoad){ // Failed to clone
+        std::cout <<"[ERROR] Track:\"";
+        std::cout << track.get_title();
+        std::cout <<"\"failed to clone" << std::endl;
+        return -1;
+    }
+    // First track operation
+    if(decks[0] == nullptr && decks[1] == nullptr){
+        // Loading sim
+        toLoad -> load(); 
+        toLoad -> analyze_beatgrid();
+        // Memory management 
+        decks[0] = toLoad.release();
+        std::cout<<"[Load Complete]" << toLoad -> get_title();
+        std::cout<<"is now loaded on deck 0"<<std::endl;
+        return 1;
+    }
+
+    int target = 1 - active_deck;
+
+     // Syncing BPM if needed
+    if(auto_sync && !can_mix_tracks(toLoad)){  // can_mix_tracks checks for nullptr in decks
+            sync_bpm(toLoad);
+        }
+
+    // Deck is occupied and needs to be replaced
+    if(decks[target]){
+        std::cout << "[Deck Switch] Target deck:" <<target;
+        std::cout<<"=== Clearing deck:"<<target<<"==="<<std::endl;
+        // Memory management
+        delete decks[target];
+        decks[target] = nullptr;
+    }
+    
+    // Loading sim
+    toLoad -> load();
+    toLoad -> analyze_beatgrid();
+    std::cout<<"[Load Complete]" << toLoad -> get_title();
+    std::cout<<"is now loaded on deck" << target << std::endl;
+    decks[target] = toLoad.release(); // Release handles PW's memory management
+    
+    if(decks[active_deck]){
+        std::cout<< "[Unload] Unloading previous deck" << active_deck;
+        std::cout << decks[active_deck] -> get_title() << std::endl;// Unloading sim
+        // Memory management
+        delete decks[active_deck];
+        decks[active_deck] = nullptr;
+    }
+    active_deck = target;
+    std::cout <<"Active deck is now" << target << std::endl;
+    return 1;
 }
 
 /**
@@ -55,7 +115,12 @@ void MixingEngineService::displayDeckStatus() const {
  */
 bool MixingEngineService::can_mix_tracks(const PointerWrapper<AudioTrack>& track) const {
     // Your implementation here
-    return false; // Placeholder
+    // Nullptr check - cant mix
+    if(!decks[active_deck] || !track.operator->()) return false;
+    
+    int activeBpm = decks[active_deck] -> get_bpm(), checkBpm = track -> get_bpm();
+    if(abs(activeBpm - checkBpm) > bpm_tolerance) return false;
+    return true;
 }
 
 /**
@@ -64,4 +129,11 @@ bool MixingEngineService::can_mix_tracks(const PointerWrapper<AudioTrack>& track
  */
 void MixingEngineService::sync_bpm(const PointerWrapper<AudioTrack>& track) const {
     // Your implementation here
+    if(decks[active_deck] && track.operator->()){
+        int toChange = track -> get_bpm(), activeBpm = decks[active_deck] -> get_bpm();
+        int repBpm = ((toChange + activeBpm) / 2); // Getting the average bpm
+        std::cout << "[Sync BPM] Synchin from" << toChange << "to" << repBpm << std::endl;
+        track -> set_bpm(repBpm);
+    }
+
 }

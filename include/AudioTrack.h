@@ -23,7 +23,7 @@ protected:
     std::vector<std::string> artists;
     int duration_seconds;
     int bpm;  // beats per minute for mixing
-    double* waveform_data = nullptr;  // Dynamic array for audio analysis, pre-initializing for safety
+    double* waveform_data;  // Dynamic array for audio analysis
     size_t waveform_size;   // Size of the waveform array
 
 public:
@@ -107,4 +107,5 @@ public:
     int get_bpm() const { return bpm; }
     int get_duration() const { return duration_seconds; }
     std::vector<std::string> get_artists() const { return artists; }
+    void set_bpm(int Bpm);
 };

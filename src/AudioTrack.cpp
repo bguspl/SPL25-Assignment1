@@ -7,7 +7,7 @@
 AudioTrack::AudioTrack(const std::string& title, const std::vector<std::string>& artists, 
                       int duration, int bpm, size_t waveform_samples)
     : title(title), artists(artists), duration_seconds(duration), bpm(bpm), 
-      waveform_size(waveform_samples) {
+      waveform_data(nullptr), waveform_size(waveform_samples) {
 
     // Allocate memory for waveform analysis
     waveform_data = new double[waveform_size];
@@ -93,13 +93,13 @@ AudioTrack::AudioTrack(AudioTrack&& other) noexcept
     artists(std::move(other.artists)),
     bpm(other.bpm),
     duration_seconds(other.duration_seconds),
-    waveform_size(other.waveform_size)
+    waveform_size(other.waveform_size),
+    waveform_data(other.waveform_data)
     {
     // TODO: Implement the move constructor
     #ifdef DEBUG
     std::cout << "AudioTrack move constructor called for: " << other.title << std::endl;
     #endif
-    waveform_data = other.waveform_data;
     other.waveform_data = nullptr;
     
 }
@@ -127,4 +127,9 @@ void AudioTrack::get_waveform_copy(double* buffer, size_t buffer_size) const {
     if (buffer && waveform_data && buffer_size <= waveform_size) {
         std::memcpy(buffer, waveform_data, buffer_size * sizeof(double));
     }
+}
+
+// Added set function to access the BPM field
+void AudioTrack::set_bpm(int Bpm){
+    bpm = Bpm;
 }

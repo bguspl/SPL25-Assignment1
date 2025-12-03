@@ -63,8 +63,9 @@ public:
      * HINT: How should ownership transfer from one wrapper to another?
      * What should happen to the source wrapper after the move?
      */
-    PointerWrapper(PointerWrapper&& other) noexcept {
-        this -> ptr = other.ptr;
+    PointerWrapper(PointerWrapper&& other) noexcept
+    :ptr(other.ptr) {
+        std::cout << "Move constructor called for: " << other.ptr << std::endl;
         other.ptr = nullptr;
     }
 
@@ -145,6 +146,7 @@ public:
      * What should happen to the old pointer?
      */
     void reset(T* new_ptr = nullptr) {
+        std::cout << "Reset called for pointer: " << new_ptr << std::endl;
         delete ptr;
         this -> ptr = new_ptr;
     }
