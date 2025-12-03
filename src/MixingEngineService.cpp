@@ -49,9 +49,9 @@ int MixingEngineService::loadTrackToDeck(const AudioTrack& track) {
         toLoad -> load(); 
         toLoad -> analyze_beatgrid();
         // Memory management 
-        decks[0] = toLoad.release();
         std::cout<<"[Load Complete]" << toLoad -> get_title();
         std::cout<<"is now loaded on deck 0"<<std::endl;
+        decks[0] = toLoad.release();
         return 1;
     }
 
@@ -75,7 +75,7 @@ int MixingEngineService::loadTrackToDeck(const AudioTrack& track) {
     toLoad -> load();
     toLoad -> analyze_beatgrid();
     std::cout<<"[Load Complete]" << toLoad -> get_title();
-    std::cout<<"is now loaded on deck" << target << std::endl;
+    std::cout<<"is now loaded on deck: " << target << std::endl;
     decks[target] = toLoad.release(); // Release handles PW's memory management
     
     if(decks[active_deck]){
