@@ -9,9 +9,6 @@ Playlist::Playlist(const std::string &name)
     std::cout << "Created playlist: " << name << std::endl;
 }
 
-// TODO: Fix memory leaks!
-// Students must fix this in Phase 1
-
 // we added a while loop that runs over the track list and dektes them
 Playlist::~Playlist()
 {

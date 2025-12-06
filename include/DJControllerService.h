@@ -25,7 +25,7 @@ public:
 
     // Contract: Display cache status (LRU order and occupancy)
     // - Intended for debugging and interactive inspection
-    void displayCacheStatus() const; // TODO: Implement
+    void displayCacheStatus() const;
 
     /**
      * @brief Set the cache size for the LRUCache.

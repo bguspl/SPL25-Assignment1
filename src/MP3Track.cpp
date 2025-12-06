@@ -11,8 +11,6 @@ MP3Track::MP3Track(const std::string &title, const std::vector<std::string> &art
     std::cout << "MP3Track created: " << bitrate << " kbps" << std::endl;
 }
 
-// ========== TODO: STUDENTS IMPLEMENT THESE VIRTUAL FUNCTIONS ==========
-
 void MP3Track::load()
 {
     std::cout << "[MP3Track::load] Loading MP3: \"" << title

@@ -27,30 +27,12 @@ public:
     MP3Track(const std::string &title, const std::vector<std::string> &artists,
              int duration, int bpm, int bitrate, bool has_tags = true);
 
-    // ========== TODO: IMPLEMENT VIRTUAL FUNCTIONS ==========
-
-    /**
-     * TODO: Implement load function for MP3 files
-     * HINT: Print loading message specific to MP3 format
-     */
     void load() override;
 
-    /**
-     * TODO: Implement beat grid analysis for MP3
-     * HINT: MP3 analysis might be less precise than WAV
-     */
     void analyze_beatgrid() override;
 
-    /**
-     * TODO: Implement quality score calculation
-     * HINT: Use bitrate to determine quality (higher bitrate = better quality)
-     */
     double get_quality_score() const override;
 
-    /**
-     * TODO: Implement clone function
-     * HINT: Return a unique_ptr to a new MP3Track with same properties
-     */
     PointerWrapper<AudioTrack> clone() const override;
 
     // Getters
