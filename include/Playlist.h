@@ -7,7 +7,7 @@
 
 /**
  * ⚠️  WARNING: THIS CLASS HAS INTENTIONAL MEMORY LEAKS! ⚠️
- * 
+ *
  * This is Phase 1 of the assignment - students must identify and fix all memory leaks.
  * @todo Implement proper memory management to prevent leaks.
  * @note In phase 4, the library service should provide canonical ownership semantics
@@ -15,17 +15,19 @@
  * clear ownership and safe iteration without leaks.
  */
 
-struct PlaylistNode {
-    AudioTrack* track; 
-    PlaylistNode* next;
+struct PlaylistNode
+{
+    AudioTrack *track;
+    PlaylistNode *next;
 
-    PlaylistNode(AudioTrack* t) : track(t), next(nullptr) {}
+    PlaylistNode(AudioTrack *t) : track(t), next(nullptr) {}
     ~PlaylistNode() = default;
 };
 
-class Playlist {
+class Playlist
+{
 private:
-    PlaylistNode* head;
+    PlaylistNode *head;
     std::string playlist_name;
     int track_count;
 
@@ -33,24 +35,30 @@ public:
     /**
      * Constructor
      */
-    Playlist(const std::string& name="");
+    Playlist(const std::string &name = "");
 
     /**
      * Destructor
      */
     ~Playlist();
 
+    // Copy Constructor
+    Playlist(const Playlist &other);
+
+    // Copy assignment
+    Playlist &operator=(const Playlist &other);
+
     /**
      * Add a track to the playlist
      * @param track Pointer to AudioTrack to add
      */
-    void add_track(AudioTrack* track);
+    void add_track(AudioTrack *track);
 
     /**
      * Remove a track by title
      * @param title Title of the track to remove
      */
-    void remove_track(const std::string& title);
+    void remove_track(const std::string &title);
 
     /**
      * Display all tracks in the playlist
@@ -62,14 +70,14 @@ public:
      * @return Number of tracks in the playlist
      */
     int get_track_count() const { return track_count; }
-    const std::string& get_name() const { return playlist_name; }
+    const std::string &get_name() const { return playlist_name; }
 
     /**
      * @param title Title of the track to find
      * @brief Find a track by title
      * @return Pointer to the found track, or nullptr if not found
      */
-    AudioTrack* find_track(const std::string& title) const;
+    AudioTrack *find_track(const std::string &title) const;
 
     /**
      * Check if playlist is empty
@@ -84,10 +92,7 @@ public:
     /**
      * Get all tracks as a vector
      */
-    std::vector<AudioTrack*> getTracks() const;
-
+    std::vector<AudioTrack *> getTracks() const;
 };
-
-
 
 #endif // PLAYLIST_H
