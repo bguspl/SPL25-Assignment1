@@ -11,6 +11,7 @@
 struct SessionConfig {
     std::string app_name;
     std::string version;
+    std::string playlists_directory;
     
     // Library tracks from config file
     struct TrackInfo {

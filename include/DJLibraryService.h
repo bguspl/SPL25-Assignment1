@@ -14,7 +14,28 @@
 class DJLibraryService {
 public:
     DJLibraryService(const Playlist& playlist);
-    DJLibraryService(): playlist(), library(){}
+    DJLibraryService() = default;
+    // =================================================================================
+    // Rule of 3 Declarations
+    // Required because we manage raw pointers in std::vector<AudioTrack*> library
+    // =================================================================================
+    
+    /**
+     * Destructor - cleans up the library tracks
+     */
+    ~DJLibraryService();
+
+    /**
+     * Copy Constructor - performs deep copy of the library
+     */
+    DJLibraryService(const DJLibraryService& other);
+
+    /**
+     * Copy Assignment Operator - performs deep copy of the library
+     */
+    DJLibraryService& operator=(const DJLibraryService& other);
+
+    // =================================================================================
 
     /**
      * @brief Build the track library from parsed config data
