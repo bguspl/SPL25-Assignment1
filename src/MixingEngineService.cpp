@@ -44,7 +44,7 @@ int MixingEngineService::loadTrackToDeck(const AudioTrack& track) {
         displayDeckStatus();
         return -1;
     }
-    // First track operation
+    // First track operation - need to be deleted
     // if(decks[0] == nullptr && decks[1] == nullptr){
     //     // Loading sim
     //     toLoad -> load(); 
@@ -83,7 +83,7 @@ int MixingEngineService::loadTrackToDeck(const AudioTrack& track) {
     active_deck = target;
     std::cout <<"Active deck is now" << target << std::endl;
     displayDeckStatus();
-    return 1;
+    return target;
 }
 
 /**
