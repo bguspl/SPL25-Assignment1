@@ -41,19 +41,21 @@ int MixingEngineService::loadTrackToDeck(const AudioTrack& track) {
         std::cout <<"[ERROR] Track:\"";
         std::cout << track.get_title();
         std::cout <<"\"failed to clone" << std::endl;
+        displayDeckStatus();
         return -1;
     }
     // First track operation
-    if(decks[0] == nullptr && decks[1] == nullptr){
-        // Loading sim
-        toLoad -> load(); 
-        toLoad -> analyze_beatgrid();
-        // Memory management 
-        std::cout<<"[Load Complete]" << toLoad -> get_title();
-        std::cout<<"is now loaded on deck 0"<<std::endl;
-        decks[0] = toLoad.release();
-        return 1;
-    }
+    // if(decks[0] == nullptr && decks[1] == nullptr){
+    //     // Loading sim
+    //     toLoad -> load(); 
+    //     toLoad -> analyze_beatgrid();
+    //     // Memory management 
+    //     std::cout<<"[Load Complete]" << toLoad -> get_title();
+    //     std::cout<<"is now loaded on deck 0"<<std::endl;
+    //     decks[0] = toLoad.release();
+    //     displayDeckStatus();
+    //     return 1;
+    // }
 
     int target = 1 - active_deck;
 
@@ -78,15 +80,9 @@ int MixingEngineService::loadTrackToDeck(const AudioTrack& track) {
     std::cout<<"is now loaded on deck: " << target << std::endl;
     decks[target] = toLoad.release(); // Release handles PW's memory management
     
-    if(decks[active_deck]){
-        std::cout<< "[Unload] Unloading previous deck" << active_deck;
-        std::cout << decks[active_deck] -> get_title() << std::endl;// Unloading sim
-        // Memory management
-        delete decks[active_deck];
-        decks[active_deck] = nullptr;
-    }
     active_deck = target;
     std::cout <<"Active deck is now" << target << std::endl;
+    displayDeckStatus();
     return 1;
 }
 

@@ -119,7 +119,7 @@ bool DJSession::load_track_to_mixer_deck(const std::string& track_title) {
         }
         else {
             stats.transitions++;
-            if(load_result == 1) stats.deck_loads_a++;
+            if(load_result == 0) stats.deck_loads_a++;
             else stats.deck_loads_b++;
             return true;
         }
@@ -173,7 +173,6 @@ void DJSession::simulate_dj_performance() {
                     load_track_to_mixer_deck(track_title); // in-function stats updates
                 }
                 print_session_summary();
-                stats = SessionStats();
             }
         }
         std::cout << "All playlists played" << std::endl;
@@ -191,7 +190,6 @@ void DJSession::simulate_dj_performance() {
                     load_track_to_mixer_deck(track_title); // in-function stats updates
                 }
                 print_session_summary();
-                stats = SessionStats(); // erase all stats counters
             }
             playlist_request = display_playlist_menu_from_config();
         }

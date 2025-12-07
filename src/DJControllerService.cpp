@@ -29,6 +29,7 @@ int DJControllerService::loadTrackToCache(AudioTrack& track) {
             PointerWrapper<AudioTrack> clone2(clonedTrack);
             bool evict = false;
             evict = cache.put(std::move(clone2));
+            cache.displayStatus();
             if(evict) return -1;
             else return 0;
         }
