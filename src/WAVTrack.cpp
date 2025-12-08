@@ -11,29 +11,42 @@ WAVTrack::WAVTrack(const std::string& title, const std::vector<std::string>& art
 // ========== TODO: STUDENTS IMPLEMENT THESE VIRTUAL FUNCTIONS ==========
 
 void WAVTrack::load() {
-    // TODO: Implement realistic WAV loading simulation
-    // NOTE: Use exactly 2 spaces before the arrow (→) character
-
+    std::cout << "[WAVTrack::load] Loading WAV: \"" << title << "\" at " << sample_rate << "Hz/" << bit_depth << "bit (uncompressed)...\n";
+    long size = duration_seconds * sample_rate * (bit_depth / 8) * 2 ;
+    std::cout << "  → Estimated file size: " << size << " bytes" << std::endl;
+    std::cout << "  → Fast loading due to uncompressed format." << std::endl;
 }
 
 void WAVTrack::analyze_beatgrid() {
     std::cout << "[WAVTrack::analyze_beatgrid] Analyzing beat grid for: \"" << title << "\"\n";
-    // TODO: Implement WAV-specific beat detection analysis
-    // Requirements:
-    // 1. Print analysis message with track title
-    // 2. Calculate beats: (duration_seconds / 60.0) * bpm
-    // 3. Print number of beats and mention uncompressed precision
-    // should print "  → Estimated beats: <beats>  → Precision factor: 1.0 (uncompressed audio)"
+    double beats_estimated = (duration_seconds / 60.0) * bpm;
+    int beats_int = static_cast<int>(beats_estimated);
+    double precision_factor = 1.0;
+    std::cout << "  → Estimated beats: " << beats_int << "  → Precision factor: " << static_cast<int>(precision_factor) << " (uncompressed audio)" << std::endl;
 }
 
 double WAVTrack::get_quality_score() const {
-    // TODO: Implement WAV quality scoring
-    // NOTE: Use exactly 2 spaces before each arrow (→) character
-    // NOTE: Cast beats to integer when printing
-    return 0.0; // Replace with your implementation
+    double base_score = 70.0;
+    if(sample_rate >= 44100) {
+        base_score += 10;
+        if(sample_rate >= 96000) {
+            base_score += 5;
+        }
+    }
+    if(bit_depth >= 16) {
+        base_score += 10;
+        if(bit_depth >= 24) {
+            base_score += 5;
+        }
+    }
+    if(base_score > 100) {
+        base_score = 100;
+    }
+    int score_int = static_cast<int>(base_score);
+    std::cout << "[WAVTrack::get_quality_score] \"" << title << "\" score = " << score_int << "/100" << std::endl;
+    return base_score;
 }
 
 PointerWrapper<AudioTrack> WAVTrack::clone() const {
-    // TODO: Implement the clone method
-    return PointerWrapper<AudioTrack>(nullptr); // Replace with your implementation
+    return PointerWrapper<AudioTrack>(new WAVTrack(*this));
 }

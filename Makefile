@@ -3,7 +3,7 @@
 
 # Compiler and flags
 CXX = g++
-CXXFLAGS = -std=c++11 -Wall -Wextra -pedantic -g -Weffc++
+CXXFLAGS = -std=c++11 -Wall -Wextra -pedantic -g -Weffc++ -DDEBUG
 LDFLAGS = 
 
 # Directories

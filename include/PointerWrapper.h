@@ -17,7 +17,7 @@ template<typename T>
 class PointerWrapper {
 private:
     T* ptr;  // Raw pointer to the managed object
-
+    
 public:
     // ========== CONSTRUCTION AND DESTRUCTION ==========
 
@@ -32,12 +32,15 @@ public:
     explicit PointerWrapper(T* p) : ptr(p) {}
 
     /**
-     * TODO: Implement destructor
      * HINT: What should happen to the wrapped pointer when the wrapper is destroyed?
      * Think about ownership and resource management.
      * Is the default destructor sufficient here?
      */
-    ~PointerWrapper() =default;
+    ~PointerWrapper() {
+        if (ptr != nullptr) {
+            delete ptr;
+        }
+    }
 
     // ========== COPY OPERATIONS (DELETED) ==========
 
@@ -56,80 +59,110 @@ public:
     // ========== MOVE OPERATIONS (STUDENTS IMPLEMENT) ==========
 
     /**
-     * TODO: Implement move constructor
      * HINT: How should ownership transfer from one wrapper to another?
      * What should happen to the source wrapper after the move?
      */
-    PointerWrapper(PointerWrapper&& other) noexcept {}
-
+    PointerWrapper(PointerWrapper&& other) noexcept:ptr(other.ptr) {
+        #ifdef DEBUG
+        std::cout << "Move constructor called for: " << static_cast<void*>(other.ptr) << std::endl;
+        #endif
+        other.ptr = nullptr;
+    }
     /**
-     * TODO: Implement move assignment operator
      * HINT: Handle cleanup of current resource and ownership transfer
      * Don't forget about self-assignment!
      */
     PointerWrapper& operator=(PointerWrapper&& other) noexcept {
+        if(other.ptr==ptr) {
+            return *this;
+        }
+        if(ptr != nullptr) {
+            delete ptr;
+        }
+        ptr = other.ptr;
+        other.ptr = nullptr;
         return *this;
     }
 
     // ========== ACCESS OPERATIONS ==========
 
     /**
-     * TODO: Implement dereference operator
      * HINT: How do you access the object that the wrapper points to? Is this operation implementation complete?
      * @throws std::runtime_error if ptr is null
      */
 
     T& operator*() const {
+        if(ptr == nullptr) {
+            throw std::runtime_error("Pointer is null");
+        }
         return *ptr;
     };
 
     /**
-     * TODO: Implement arrow operator
      * HINT: How do you access members of the wrapped object?
      * What safety checks should you perform?
      */
     T* operator->() const {
-        return nullptr;
+        if(ptr == nullptr) {
+            throw std::runtime_error("Pointer is null");
+        }
+        return ptr;
     }
+    // main PointerWrapper<Mp3> object(new Mp3Track("title", "artist", 100, 120, 128, true));
+    // object->get_title()
 
     /**
-     * TODO: Implement get() function
      * HINT: Sometimes you need access to the raw pointer without changing ownership
      * What should this function return?
      * @throws std::runtime_error if ptr is null
      */
     T* get() const {
-        return nullptr; // Placeholder
+        if(ptr == nullptr) {
+            throw std::runtime_error("Pointer is null");
+        }
+        return ptr;
     }
 
     // ========== OWNERSHIP MANAGEMENT ==========
 
     /**
-     * TODO: Implement release() function
      * HINT: What does "release" mean in terms of ownership?
      * Should the wrapper still own the pointer after calling release()?
      */
     T* release() {
-        return nullptr;
+        T* temp = ptr;
+        ptr = nullptr;
+        return temp;
     }
 
     /**
-     * TODO: Implement reset() function
      * HINT: How do you replace the currently wrapped pointer?
      * What should happen to the old pointer?
      */
+
     void reset(T* new_ptr = nullptr) {
+        if(new_ptr == ptr) {
+            return;
+        }
+        #ifdef DEBUG
+        std::cout << "Reset called for pointer: " << static_cast<void*>(ptr) << std::endl;
+        #endif
+        if(ptr != nullptr) {
+            delete ptr;
+        }
+        ptr = new_ptr;
     }
 
     // ========== UTILITY FUNCTIONS ==========
 
     /**
-     * TODO: Implement boolean conversion operator
      * HINT: When should a wrapper be considered "true" or "false"?
      * Why might the explicit keyword be important here?
      */
+
+
     explicit operator bool() const {
-        return false; //placeholder
+        return ptr != nullptr;
     }
 
     /**
@@ -154,15 +187,17 @@ PointerWrapper<T> make_pointer_wrapper(Args&&... args) {
 }
 
 /**
- * TODO: Implement swap for PointerWrapper
  * HINT: How can you swap two wrapper objects?
  * Why might this be useful?
  */
 template<typename T>
 void swap(PointerWrapper<T>& lhs, PointerWrapper<T>& rhs) noexcept {
-    // TODO: Implement global swap function
     // HINT: You can use the member swap function
     //your code here...
+    if(&lhs == &rhs) {
+        return;
+    }
+    lhs.swap(rhs);
 }
 
 #endif // POINTERWRAPPER_H

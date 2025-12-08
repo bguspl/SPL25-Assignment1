@@ -15,26 +15,42 @@ MP3Track::MP3Track(const std::string& title, const std::vector<std::string>& art
 void MP3Track::load() {
     std::cout << "[MP3Track::load] Loading MP3: \"" << title
               << "\" at " << bitrate << " kbps...\n";
-    // TODO: Implement MP3 loading with format-specific operations
-    // NOTE: Use exactly 2 spaces before the arrow (→) character
-    
+    if(has_id3_tags) {
+        std::cout << "  → Processing ID3 metadata (artist info, album art, etc.)..." << std::endl;
+    } else {
+        std::cout << "  → No ID3 tags found" << std::endl;
+    }
+    std::cout << "  → Decoding MP3 frames..." << std::endl;
+    std::cout << "  → Load complete." << std::endl;
 }
 
 void MP3Track::analyze_beatgrid() {
      std::cout << "[MP3Track::analyze_beatgrid] Analyzing beat grid for: \"" << title << "\"\n";
-    // TODO: Implement MP3-specific beat detection analysis
-    // NOTE: Use exactly 2 spaces before each arrow (→) character
-
+    int beats_int = static_cast<int>((duration_seconds / 60.0) * bpm);
+    double precision_factor = bitrate / 320.0;
+    std::cout << "  → Estimated beats: " << beats_int << "  → Compression precision factor: " << static_cast<int>(precision_factor) << std::endl;
 }
 
 double MP3Track::get_quality_score() const {
-    // TODO: Implement comprehensive quality scoring
-    // NOTE: This method does NOT print anything
-
-    return 0.0; // Replace with your implementation
+    double base_score = (bitrate / 320.0) * 100.0;
+    if(has_id3_tags) {
+        base_score += 5;
+    }
+    if(bitrate < 128) {
+        base_score -= 10;
+    }
+    if(base_score < 0) {
+        base_score = 0;
+    }
+    if(base_score > 100) {
+        base_score = 100;
+    }
+    int score_int = static_cast<int>(base_score);
+    std::cout << "[MP3Track::get_quality_score] \"" << title << "\" score = " << score_int << "/100" << std::endl;
+    return base_score;
 }
 
 PointerWrapper<AudioTrack> MP3Track::clone() const {
-    // TODO: Implement polymorphic cloning
-    return PointerWrapper<AudioTrack>(nullptr); // Replace with your implementation
+    return PointerWrapper<AudioTrack>(new MP3Track(*this));
+
 }
