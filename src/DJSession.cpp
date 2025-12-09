@@ -107,7 +107,7 @@ bool DJSession::load_track_to_mixer_deck(const std::string& track_title) {
         return false;
     }
 
-    int deck_result = mixing_service.loadTrackToDeck(track_ptr);
+    int deck_result = mixing_service.loadTrackToDeck(*track_ptr);
 
     if (deck_result == 0) {
         stats.deck_loads_a++;
