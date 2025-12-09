@@ -1,0 +1,134 @@
+==================================================
+    DJ TRACK SESSION MANAGER - TEST PROGRAM
+==================================================
+This program tests all phases of the assignment.
+Initially, many features will be incomplete!
+==================================================
+
+======== PHASE 1: MEMORY LEAK TESTING ========
+Testing the broken Playlist class...
+Creating tracks...
+AudioTrack created: Sunset Lover by 
+Petit Biscuit 
+MP3Track created: 320 kbps
+AudioTrack created: Strobe by 
+Deadmau5 
+WAVTrack created: 44100Hz/16bit
+Creating playlist...
+Created playlist: Chill House Mix
+Added 'Sunset Lover' to playlist 'Chill House Mix'
+Added 'Strobe' to playlist 'Chill House Mix'
+
+=== Playlist: Chill House Mix ===
+Track count: 2
+1. Strobe by Deadmau5 (645s, 128 BPM)
+2. Sunset Lover by Petit Biscuit (180s, 120 BPM)
+========================
+
+Removing track...
+AudioTrack destructor called for: Strobe
+Removed 'Strobe' from playlist
+
+=== Playlist: Chill House Mix ===
+Track count: 1
+1. Sunset Lover by Petit Biscuit (180s, 120 BPM)
+========================
+
+Cleaning up...
+AudioTrack destructor called for: Sunset Lover
+Destroying playlist: Chill House Mix
+Phase 1 test complete. Check for memory leaks!
+
+
+======== PHASE 2: RULE OF 5 TESTING ========
+Testing AudioTrack copy and move operations...
+Testing copy constructor...
+AudioTrack created: Original Track by 
+Test Artist 
+MP3Track created: 256 kbps
+AudioTrack copy constructor called for: Original Track
+Original: Original Track
+Copied: Original Track
+
+Testing copy assignment...
+AudioTrack created: Temporary Track by 
+Temp Artist 
+MP3Track created: 128 kbps
+AudioTrack copy assignment called for: Original Track
+Assigned: Original Track
+
+Testing move constructor...
+AudioTrack move constructor called for: 
+Moved: Original Track
+Phase 2 test complete!
+
+AudioTrack destructor called for: Original Track
+AudioTrack destructor called for: Original Track
+AudioTrack destructor called for: Original Track
+AudioTrack destructor called for: 
+
+======== PHASE 3: SMART POINTER TESTING ========
+Testing DJUniquePtr implementation...
+Testing DJUniquePtr construction...
+AudioTrack created: Smart Track by 
+AI Artist 
+MP3Track created: 320 kbps
+
+Testing access operators...
+Smart pointer contains: Smart Track
+BPM: 130
+
+Testing move operations...
+Original pointer after move: null
+Moved pointer: valid
+
+Testing reset...
+AudioTrack created: Reset Track by 
+Reset Artist 
+MP3Track created: 256 kbps
+AudioTrack destructor called for: Smart Track
+
+Testing release...
+Released pointer: Reset Track
+AudioTrack destructor called for: Reset Track
+Phase 3 test complete!
+
+
+======== POLYMORPHISM DEMONSTRATION ========
+Showing virtual function calls with different track types...
+
+AudioTrack created: MP3 Example by 
+Artist 1 
+MP3Track created: 320 kbps
+AudioTrack created: WAV Example by 
+Artist 2 
+WAVTrack created: 44100Hz/16bit
+Track: MP3 Example
+[MP3Track::load] Loading MP3: "MP3 Example" at 320 kbps...
+  → Processing ID3 metadata (artist info, album art, etc.)...
+  → Decoding MP3 frames...
+  → Load complete.
+[MP3Track::analyze_beatgrid] Analyzing beat grid for: "MP3 Example"
+  → Estimated beats: 426.667  → Compression precision factor: 1
+Quality: 100
+AudioTrack copy constructor called for: MP3 Example
+Cloned: MP3 Example
+
+AudioTrack destructor called for: MP3 Example
+Track: WAV Example
+[WAVTrack::load] Loading WAV: "WAV Example" at 44100Hz/16bit (uncompressed)...
+  → Estimated file size: 31752000 bytes
+  → Fast loading due to uncompressed format.
+[WAVTrack::analyze_beatgrid] Analyzing beat grid for: "WAV Example"
+[WAVTrack::analyze_beatgrid] Analyzing beat grid for: "WAV Example"
+  → Estimated beats: 390  → Precision factor: 1.0 (uncompressed audio)
+Quality: 90
+AudioTrack copy constructor called for: WAV Example
+Cloned: WAV Example
+
+AudioTrack destructor called for: WAV Example
+AudioTrack destructor called for: MP3 Example
+AudioTrack destructor called for: WAV Example
+
+(Set 'run_software' to true in main.cpp to run the full interactive session.)
+
