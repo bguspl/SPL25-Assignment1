@@ -53,6 +53,14 @@ double MP3Track::get_quality_score() const {
 
 PointerWrapper<AudioTrack> MP3Track::clone() const {
     // TODO: Implement polymorphic cloning
-    
-    return PointerWrapper<AudioTrack>(nullptr); // Replace with your implementation
+    double* tempData = new double[waveform_size];
+    int tempSize = waveform_size;
+    for(int i = 0; i < waveform_size; i++){
+        tempData[i] = waveform_data[i];
+    }
+    MP3Track* at = new MP3Track(title, artists, duration_seconds, bpm, bitrate, has_id3_tags);
+    delete[] at->waveform_data;
+    at->waveform_data = tempData;
+    tempData = nullptr;
+    return PointerWrapper<AudioTrack>(at); // Replace with your implementation
 }

@@ -61,5 +61,14 @@ double WAVTrack::get_quality_score() const {
 
 PointerWrapper<AudioTrack> WAVTrack::clone() const {
     // TODO: Implement the clone method
-    return PointerWrapper<AudioTrack>(nullptr); // Replace with your implementation
+    double* tempData = new double[waveform_size];
+    int tempSize = waveform_size;
+    for(int i = 0; i < waveform_size; i++){
+        tempData[i] = waveform_data[i];
+    }
+    WAVTrack* at = new WAVTrack(title, artists, duration_seconds, bpm, sample_rate, bit_depth);
+    delete[] at->waveform_data;
+    at->waveform_data = tempData;
+    tempData = nullptr;
+    return PointerWrapper<AudioTrack>(at); // Replace with your implementation
 }

@@ -71,9 +71,13 @@ AudioTrack& AudioTrack::operator=(const AudioTrack& other) {
         bpm = other.bpm; 
         waveform_size = other.waveform_size;
         artists = other.artists;
-        for(int i = 0; i < waveform_size; i++){
-            waveform_data[i] = other.waveform_data[i];
+        double* newData = new double[other.waveform_size];
+        for(int i = 0; i < other.waveform_size; i++){
+            newData[i] = other.waveform_data[i];
         }
+        delete[] waveform_data;
+        waveform_data = newData;
+        newData = nullptr;
     }
     return *this;
 }
@@ -112,3 +116,7 @@ void AudioTrack::get_waveform_copy(double* buffer, size_t buffer_size) const {
         std::memcpy(buffer, waveform_data, buffer_size * sizeof(double));
     }
 }
+
+void AudioTrack::set_bpm(int toSet){
+    bpm = toSet;
+};
