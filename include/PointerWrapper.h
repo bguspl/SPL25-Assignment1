@@ -142,6 +142,9 @@ public:
      */
     void reset(T* new_ptr = nullptr) {
           if (ptr!=new_ptr){
+            #ifdef DEBUG
+        std::cout << "Reset called for pointer: " << new_ptr << std::endl;
+        #endif
             delete ptr;
             ptr=new_ptr;
         }
